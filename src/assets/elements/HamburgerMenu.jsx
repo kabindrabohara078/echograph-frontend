@@ -1,13 +1,12 @@
 import { useState } from "react";
 import "./Hamburger.css";
 
-export default function HamburgerMenu() {
-  const [open, setOpen] = useState(false);
+export default function HamburgerMenu(props) {
 
   return (
     <button
-      className={`hamburger ${open ? "active" : ""}`}
-      onClick={() => setOpen(!open)}
+      className={`hamburger ${props.open ? "active" : ""}`}
+      onClick={() => props.setOpen(!props.open)}
     >
       <span></span>
       <span></span>

@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import HamburgerMenu from './assets/elements/HamburgerMenu';
+import Landing from './components/Landing';
+import Memory from './components/Memory';
+import Navbar from './assets/elements/Navbar'
 
 const App = () => {
 
@@ -27,20 +30,21 @@ const App = () => {
               </div>
 
               <div className="hamburger-logo">
-                <HamburgerMenu/>
+                <HamburgerMenu open = {open} setOpen={setOpen}/>
               </div>
 
             </div>
 
           </nav>
 
+        < Navbar open={open} setOpen={setOpen}/>
+
         <Routes>
 
-          <Route element={}/>
-          <Route element={}/>
-          <Route element={}/>
-          <Route element={}/>
-          <Route element={}/>
+          <Route path='/' element={<Landing/>}/>
+          <Route path='/memory' element={<Memory/>}/>
+          
+        
 
         </Routes>
 
