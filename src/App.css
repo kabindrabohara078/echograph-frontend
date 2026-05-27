@@ -13,9 +13,7 @@
 
 }
 
-nav{
-  /* height: 100%; */
-}
+
 
 /* mobile-header-section */
 .notification{
@@ -26,7 +24,7 @@ nav{
 .mobile-header{
   display: flex;
   justify-content: space-between;
-  height: 100px;
+  height: 80px;
   
 }
 .app-logo {
