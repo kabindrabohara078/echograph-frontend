@@ -1,35 +1,45 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
+import GetStarted from '../../pages/GetStarted'
 
 export default function Navbar(props) {
+
+  useEffect(() => {
+  if (open) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "auto";
+  }
+}, [open]);
 
   return (
     <>
 
-      <div className={`fixed inset-0 z-50 overflow-y-auto h-screen mobile-menu ${props.open ? "show" : ""}`}>
-        <br />
+     <div className={`mobile-menu ${props.open ? "show" : ""}`}>
+        
         <Link className="inlink-heading-title" >Product</Link>
-          <Link className="inlink-padding">Get Started</Link>
-          <Link className="inlink-padding">Features</Link>
-          <Link className="inlink-padding">Demo Proview</Link>
+          <Link to='/start' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Get Started</Link>
+          <Link to='/features' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Features</Link>
+          <Link to='/demo' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Demo Proview</Link>
 
         <Link className="inlink-heading-title">Memory Engine</Link>
-          <Link className="inlink-padding">Semantic Search</Link>
-          <Link className="inlink-padding">Vector Retrieval</Link>
-          <Link className="inlink-padding">Adaptive Ranking</Link>
-          <Link className="inlink-padding">Memory Lifecycle</Link>
-          <Link className="inlink-padding">User Context</Link>
+          <Link to='/memory/#search' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Semantic Search</Link>
+          <Link to='/memory/#vector' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Vector Retrieval</Link>
+          <Link to='/memory/#ranking' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Adaptive Ranking</Link>
+          <Link to='/memory/#lifecycle' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Memory Lifecycle</Link>
+          <Link to='/memory/#context' onClick={() => props.setOpen(!props.open)} className="inlink-padding">User Context</Link>
         
 
-        <Link onClick={() => props.setOpen(!props.open)} to="/docs">Docs</Link>
-        <Link onClick={() => props.setOpen(!props.open)} to="/contact">Github</Link>
+        <Link to="/docs" onClick={() => props.setOpen(!props.open)}>Docs</Link>
+        <Link to="https://github.com/kabindrabohara078/echograph-frontend" target="_blank">Github</Link>
+        
 
         <Link className="inlink-heading-title">Company</Link>
           <Link onClick={() => props.setOpen(!props.open)} to="/about" className="inlink-padding">About</Link>
           <Link onClick={() => props.setOpen(!props.open)} to="/careers" className="inlink-padding">Careers</Link>
 
-        <Link onClick={() => props.setOpen(!props.open)} to="https://github.com/kabindrabohara078/echograph-frontend" target="_blank">Github</Link>
+
       </div>
     </>
   );

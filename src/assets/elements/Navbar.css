@@ -1,42 +1,44 @@
 /* Mobile Navigation Overlay */
 
+.mobile-menu a {
+
+  text-decoration: none;
+  font-size: 15px;
+  color: black;
+  font-weight: bold; 
+  margin-left: 20px;
+  line-height: 1;
+}
+
 .mobile-menu {
   position: fixed;
-  top: 80px;
-  left: -100%;
+  top: 100px;
+  right: -100%;
 
   width: 100%;
   height: 100vh;
 
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(20px);
-  /* opacity: 0.9; */
+  background-color: white;
+
+  z-index: 9999;
+
+  transition: right 0.3s ease;
+
+  overflow-y: auto;
+
+  padding: 40px 20px;
 
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  /* align-items: center; */
-  gap: 30px;
-
-  transition: 0.4s ease;
-
-  z-index: 900;
+  gap: 20px;
 }
-
 .mobile-menu.show {
-  left: 0;
+  right: 0;
 }
 
-.mobile-menu a {
-  text-decoration: none;
-  font-size: 15px;
-  color: black;
-  /* font-weight: bold; */
-  margin-left: 50px;
-  line-height: 0.7;
-}
+
 .mobile-menu .inlink-padding{
-  margin-left: 70px;
+  margin-left: 50px;
 }
 .mobile-menu .inlink-heading-title{
   cursor:none;

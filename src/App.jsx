@@ -22,6 +22,12 @@ const App = () => {
                 This is a test notification
               </div>
             )}
+            {
+              notice && (
+            <div className="line"></div>
+
+              )
+            }
 
             <div className="mobile-header">
 
@@ -35,21 +41,34 @@ const App = () => {
                 <HamburgerMenu open = {open} setOpen={setOpen}/>
               </div>
 
+
+
             </div>
+
+            <div className="line"></div>
 
           </nav>
 
         < Navbar open={open} setOpen={setOpen}/>
 
+        <div className="page-content">
+
+
         <Routes>
 
           <Route path='/' element={<EchoGraphLanding/>}/>
-          <Route path='/memory' element={<Memory/>}/>
-          
-        
+          <Route path='/start' element={<Memory/>}/>
+          <Route path='/features' element={<Memory/>}/>
+          <Route path='/demo' element={<Memory/>}/>
 
+          <Route path='/memory' element={<Memory/>}/>
+          <Route path='/docs' element={<Memory/>}/>
+          <Route path='/about' element={<Memory/>}/>
+          <Route path='/careers' element={<Memory/>}/>
+          
         </Routes>
 
+        </div>
         </div>
 
       </BrowserRouter>
