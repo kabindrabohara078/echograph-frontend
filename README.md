@@ -1,127 +1,16 @@
-# 🌐 EchoGraph Frontend
+# React + Vite
 
-React-based frontend for EchoGraph — an AI semantic memory system for storing, searching, and interacting with contextual memories through a clean API-driven interface.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-# 🚀 Overview
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-The frontend acts as the user interface layer for the EchoGraph memory engine.
+## React Compiler
 
-It allows users to:
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- Store memories
-- Search memories semantically
-- View ranked retrieval results
-- Interact with the backend memory API
-- Visualize contextual memory behavior
+## Expanding the ESLint configuration
 
-The frontend communicates with the backend entirely through HTTP APIs.
-
----
-
-# 🧱 Tech Stack
-
-- React
-- Vite
-- JavaScript
-- Fetch API
-
----
-
-# 🔌 Backend Connection
-
-The frontend connects to the backend using an environment variable.
-
-Create a `.env` file in the project root:
-
-```env
-VITE_API_URL=http://localhost:8000
-```
-
-For production deployment:
-
-```env
-VITE_API_URL=https://api.echograph.in
-```
-
----
-
-# ⚡ API Communication Example
-
-```js
-fetch(`${import.meta.env.VITE_API_URL}/search`, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    query: "What database does the user prefer?"
-  })
-});
-```
-
----
-
-# 🧠 Frontend Responsibilities
-
-The frontend is responsible for:
-
-- User interaction
-- Sending requests to backend APIs
-- Displaying ranked memory results
-- Managing UI state
-- Providing memory visualization and interaction tools
-
-The backend handles:
-
-- Embeddings
-- Semantic search
-- Ranking logic
-- Database operations
-- Memory lifecycle management
-
----
-
-# ⚙️ Setup Instructions
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run development server:
-
-```bash
-npm run dev
-```
-
-Default local development server:
-
-```text
-http://localhost:5173
-```
-
----
-
-# 🌍 Environment Variables
-
-```env
-VITE_API_URL=http://localhost:8000
-```
-
----
-
-# 📈 Project Status
-
-MVP completed.
-
-Current capabilities:
-
-- frontend-backend API integration
-- semantic search interface
-- memory interaction workflow
-- React + FastAPI architecture setup
-
-EchoGraph is currently evolving into a full AI memory platform.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
