@@ -26,7 +26,9 @@ const App = () => {
             <div className="mobile-header">
 
               <div className="app-logo">
+                <a href="/">
                 <img src="/app-logo.png" alt="" />
+                </a>
               </div>
 
               <div className="hamburger-logo">

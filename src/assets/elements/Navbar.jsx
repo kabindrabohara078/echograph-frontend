@@ -6,10 +6,7 @@ export default function Navbar(props) {
 
   return (
     <>
-      {/* Overlay Menu */}
 
-
-      
       <div className={`fixed inset-0 z-50 overflow-y-auto h-screen mobile-menu ${props.open ? "show" : ""}`}>
         <br />
         <Link className="inlink-heading-title" >Product</Link>

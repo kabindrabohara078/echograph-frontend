@@ -25,19 +25,26 @@
   display: flex;
   justify-content: space-between;
   height: 80px;
+  /* background-color: aquamarine; */
   
 }
 .app-logo {
   height: 100%;
+  /* background-color: aquamarine; */
 }
 .app-logo img{
+  /* background-color: aqua; */
+  margin-left: 15px;
+  margin-top: 5px;
   height: 100%;
   width: 100%;
 }
 .hamburger-logo{
   height: 100%;
+  width: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background-color: aquamarine; */
 }
 
