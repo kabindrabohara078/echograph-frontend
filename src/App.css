@@ -31,7 +31,7 @@
   align-items: center;
 
   height: 100px;
-  background-color: azure;
+  background-color: white;
 }
 .app-logo {
   height: 100%;
@@ -62,7 +62,5 @@
 }
 
 .page-content{
-  /* background-color: aquamarine; */
-  height: 1000px;
   background-color:azure;
 }

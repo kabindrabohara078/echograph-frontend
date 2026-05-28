@@ -1,74 +1,51 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import HamburgerMenu from './assets/elements/HamburgerMenu';
-import EchoGraphLanding from './pages/EchoGraphLanding';
+import Landing from './pages/Landing';
 import Memory from './pages/Memory';
-import Navbar from './assets/elements/Navbar';
+import Navbar from './assets/components/Navbar';
+
 
 const App = () => {
 
-  const [notice, setNotice] = useState(false);
-  const [open, setOpen] = useState(false);
+
+
 
   return (
     <>
       <BrowserRouter>
         <div className="main-app">
 
-          <nav>
-            {notice && (
-              <div className="notification">
-                This is a test notification
-              </div>
-            )}
-            {
-              notice && (
-            <div className="line"></div>
+          <div className="header">
 
-              )
-            }
+          < Navbar />
 
-            <div className="mobile-header">
-
-              <div className="app-logo">
-                <a href="/">
-                <img src="/app-logo.png" alt="" />
-                </a>
-              </div>
-
-              <div className="hamburger-logo">
-                <HamburgerMenu open = {open} setOpen={setOpen}/>
-              </div>
+          </div>
 
 
+          <div className="page-content">
 
-            </div>
+            <Routes>
 
-            <div className="line"></div>
+              <Route path='/' element={<Landing />} />
+              <Route path='/start' element={<Memory />} />
+              <Route path='/features' element={<Memory />} />
+              <Route path='/demo' element={<Memory />} />
 
-          </nav>
+              <Route path='/memory' element={<Memory />} />
+              <Route path='/docs' element={<Memory />} />
+              <Route path='/about' element={<Memory />} />
+              <Route path='/careers' element={<Memory />} />
 
-        < Navbar open={open} setOpen={setOpen}/>
+            </Routes>
 
-        <div className="page-content">
+          </div>
 
+          <div className="footer">
 
-        <Routes>
+            <h1>This is footer</h1>
+          </div>
 
-          <Route path='/' element={<EchoGraphLanding/>}/>
-          <Route path='/start' element={<Memory/>}/>
-          <Route path='/features' element={<Memory/>}/>
-          <Route path='/demo' element={<Memory/>}/>
-
-          <Route path='/memory' element={<Memory/>}/>
-          <Route path='/docs' element={<Memory/>}/>
-          <Route path='/about' element={<Memory/>}/>
-          <Route path='/careers' element={<Memory/>}/>
-          
-        </Routes>
-
-        </div>
         </div>
 
       </BrowserRouter>

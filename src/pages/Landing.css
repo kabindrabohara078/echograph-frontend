@@ -1,0 +1,64 @@
+.hero, .description-about{
+    padding-right: 20px;
+    
+}
+
+.logoish-icon{
+    margin-left: 20px;
+    font-size: 12px;
+}
+.hero-section {
+  padding: 50px 32px;
+}
+
+.hero-content {
+  max-width: 100%;
+}
+
+.hero-line {
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1.1;
+  height: 100px;
+
+  opacity: 0;
+
+  animation: revealText 0.8s ease forwards;
+}
+
+
+.gradient-text {
+  background: linear-gradient(to right, #22d3ee, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.fade-up {
+  margin-top: 30px;
+
+  font-size: 30px;
+  line-height: 1.7;
+  color: grey;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+  opacity: 1;
+  transform: translateY(30px);
+
+
+}
+
+
+@keyframes revealText {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.head{
+    background-color: blue;
+}
+
+
+
+

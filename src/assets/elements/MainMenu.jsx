@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.css";
+import "./MainMenu.css";
 import GetStarted from '../../pages/GetStarted'
 
-export default function Navbar(props) {
+export default function MainMenu(props) {
 
   useEffect(() => {
-  if (open) {
+  if (props.open) {
     document.body.style.overflow = "hidden";
   } else {
     document.body.style.overflow = "auto";
   }
-}, [open]);
+}, [props.open]);
 
   return (
     <>
