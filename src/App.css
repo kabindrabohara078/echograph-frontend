@@ -34,15 +34,13 @@
   background-color: white;
 }
 .app-logo {
-  height: 100%;
+  height: 100px;
+  /* background-color: aqua; */
 
 }
 .app-logo img{
-
-
-
-  margin-top: 5px;
-  height: 100%;
+  /* margin-top: 5px; */
+  height: 99px;
   width: 100%;
 }
 .hamburger-logo{
@@ -51,8 +49,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: aquamarine; */
 }
+
 
 
 .line{

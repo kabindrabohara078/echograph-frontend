@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import './elements.css'
 
 
 export default function Typewriter() {
 
-  const text = "INTELLIGENT applications.";
+  const text = "INTELLIGENT";
   const [displayed, setDisplayed] = useState("");
 
 
@@ -21,5 +22,12 @@ export default function Typewriter() {
     return () => clearInterval(interval);
   }, []);
 
-  return displayed;
+  return (
+    <div style={{
+      height:'70px',
+      width:'100%',
+    }} className="Typewriter Typewriter-italic">
+      {displayed}
+    </div>
+  );
 }

@@ -19,7 +19,7 @@ export default function Landing() {
   return (
     <div>
 
-      <br />
+      <br /> <br />
 
       <div
       
@@ -35,12 +35,19 @@ export default function Landing() {
         <section className="hero-section">
           <div className="hero-content">
 
-            <h1 className="hero-line line1">
+            <h1 className="hero-line">
               Memory systems for
             </h1>
 
-            <h1 className="hero-line gradient-text line2">
+            
+            <br />
+
+            <h1 className="hero-line gradient-text">
               < Typewriter />
+            </h1>
+
+            <h1 className="hero-line">
+              applications.
             </h1>
 
             <p className="description-about fade-up">

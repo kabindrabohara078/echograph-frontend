@@ -42,9 +42,13 @@ const Navbar = () => {
 
             </div>
 
-            <div className="line"></div>
 
           </nav>    
+            <div style={{
+                height:'1px',
+                backgroundColor:'#095284',
+                width:'100%'
+            }} className="line"></div>
 
         < MainMenu open={open} setOpen={setOpen}/>
 

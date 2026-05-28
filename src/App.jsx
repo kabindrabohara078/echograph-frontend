@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Landing from './pages/Landing';
 import Memory from './pages/Memory';
 import Navbar from './assets/components/Navbar';
+// import ScrollNavbar from './assets/components/ScrollNavbar';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
           <div className="header">
 
           < Navbar />
+          {/* < ScrollNavbar /> */}
 
           </div>
 

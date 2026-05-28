@@ -1,0 +1,13 @@
+.navbar{
+    display: none;
+}
+.scrolled{
+    display: block;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    text-align: center;
+    transition: all 1s ease;
+    background-color: #095285;
+    color: white;
+}
