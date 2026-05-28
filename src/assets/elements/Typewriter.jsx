@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import './elements.css'
 
 
-export default function Typewriter() {
+export default function Typewriter({show_text}) {
 
-  const text = "INTELLIGENT";
+  const text = show_text;
   const [displayed, setDisplayed] = useState("");
 
 
@@ -26,7 +26,7 @@ export default function Typewriter() {
     <div style={{
       height:'70px',
       width:'100%',
-    }} className="Typewriter Typewriter-italic">
+    }} className="Typewriter">
       {displayed}
     </div>
   );

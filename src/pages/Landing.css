@@ -1,10 +1,10 @@
 .description-about {
-    text-align:justify;
+    /* text-align:justify; */
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 25px;
     line-height: 1.5;
     color: grey;
-    width: 95%;
+    width: 90%;
 }
 
 .logoish-icon {
@@ -30,18 +30,6 @@
 }
 
 
-.gradient-text {
-    font-size: 50px;
-    /* height: 150px; */
-    width: 90%;
-    /* background-color: #a855f7; */
-    background: linear-gradient(to right, #22d3ee, #a855f7);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-
-
 @keyframes revealText {
     to {
         opacity: 1;
@@ -49,6 +37,3 @@
     }
 }
 
-.head {
-    background-color: blue;
-}

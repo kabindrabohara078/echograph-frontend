@@ -5,4 +5,11 @@
   font-weight: 450;
   font-style: normal;
   /* background-color: aqua; */
+  font-size: 50px;
+  /* height: 150px; */
+  width: 90%;
+  /* background-color: #a855f7; */
+  background: linear-gradient(to right, #22d3ee, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

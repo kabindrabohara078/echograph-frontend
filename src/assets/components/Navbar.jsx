@@ -29,7 +29,7 @@ const Navbar = () => {
                 <div className="mobile-header">
 
                     <div className="app-logo">
-                        <Link to='/'>
+                        <Link onClick={()=> setOpen(false)} to='/'>
                             <img src="/app-logo.png" alt="" />
                         </Link>
 

@@ -4,6 +4,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Landing from './pages/Landing';
 import Memory from './pages/Memory';
 import Navbar from './assets/components/Navbar';
+import AuthPage from './pages/AuthPage';
+import Demo from './pages/Demo';
+import Footer from './assets/components/Footer';
 // import ScrollNavbar from './assets/components/ScrollNavbar';
 
 
@@ -30,9 +33,9 @@ const App = () => {
             <Routes>
 
               <Route path='/' element={<Landing />} />
-              <Route path='/start' element={<Memory />} />
+              <Route path='/start' element={< AuthPage />} />
               <Route path='/features' element={<Memory />} />
-              <Route path='/demo' element={<Memory />} />
+              <Route path='/demo' element={< Demo />} />
 
               <Route path='/memory' element={<Memory />} />
               <Route path='/docs' element={<Memory />} />
@@ -45,7 +48,7 @@ const App = () => {
 
           <div className="footer">
 
-            <h1>This is footer</h1>
+            < Footer />
           </div>
 
         </div>
