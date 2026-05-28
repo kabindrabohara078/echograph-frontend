@@ -29,8 +29,7 @@ export default function Landing() {
 
 
       {/* Hero */}
-      <section className="main-landing">
-
+      
 
         <section className="hero-section">
           <div className="hero-content">
@@ -50,19 +49,10 @@ export default function Landing() {
               applications.
             </h1>
 
-            <p className="description-about fade-up">
-              EchoGraph stores, retrieves, and ranks contextual memories using
-              semantic embeddings, adaptive scoring, and vector search.
-            </p><p className="description-about fade-up">
-              EchoGraph stores, retrieves, and ranks contextual memories using
-              semantic embeddings, adaptive scoring, and vector search.
-            </p><p className="description-about fade-up">
-              EchoGraph stores, retrieves, and ranks contextual memories using
-              semantic embeddings, adaptive scoring, and vector search.
-            </p><p className="description-about fade-up">
-              EchoGraph stores, retrieves, and ranks contextual memories using
-              semantic embeddings, adaptive scoring, and vector search.
-            </p><p className="description-about fade-up">
+
+            <br /><br />
+
+            <p className="description-about">
               EchoGraph stores, retrieves, and ranks contextual memories using
               semantic embeddings, adaptive scoring, and vector search.
             </p>
@@ -70,8 +60,7 @@ export default function Landing() {
           </div>
         </section>
 
-      </section>
-
+    
 
 
     </div>

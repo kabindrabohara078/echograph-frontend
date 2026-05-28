@@ -47,7 +47,7 @@ const Navbar = () => {
             </nav>
             <div style={{
                 height: '1px',
-                backgroundColor: '#095284',
+                backgroundColor: '#428fc5',
                 width: '100%'
             }} className="line"></div>
 

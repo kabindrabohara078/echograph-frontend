@@ -1,7 +1,10 @@
-.hero,
 .description-about {
-    padding-right: 20px;
-
+    text-align:justify;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 25px;
+    line-height: 1.5;
+    color: grey;
+    width: 95%;
 }
 
 .logoish-icon {
@@ -18,7 +21,7 @@
 }
 
 .hero-line {
-    font-size:40px;
+    font-size:30px;
     font-weight: bold;
     line-height: 1.1;
     min-width: 100%;
@@ -37,19 +40,6 @@
     -webkit-text-fill-color: transparent;
 }
 
-.fade-up {
-    margin-top: 30px;
-
-    font-size: 30px;
-    line-height: 1.7;
-    color: grey;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-
-    opacity: 1;
-    transform: translateY(30px);
-
-
-}
 
 
 @keyframes revealText {
