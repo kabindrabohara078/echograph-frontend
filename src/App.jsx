@@ -7,6 +7,7 @@ import Navbar from './assets/components/Navbar';
 import AuthPage from './pages/AuthPage';
 import Demo from './pages/Demo';
 import Footer from './assets/components/Footer';
+import Test from './pages/Test';
 // import ScrollNavbar from './assets/components/ScrollNavbar';
 
 
@@ -41,6 +42,10 @@ const App = () => {
               <Route path='/docs' element={<Memory />} />
               <Route path='/about' element={<Memory />} />
               <Route path='/careers' element={<Memory />} />
+
+
+
+              <Route path='/test' element={< Test />} />
 
             </Routes>
 

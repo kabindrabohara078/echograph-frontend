@@ -39,6 +39,7 @@ export default function MainMenu(props) {
           <Link onClick={() => props.setOpen(!props.open)} to="/about" className="inlink-padding">About</Link>
           <Link onClick={() => props.setOpen(!props.open)} to="/careers" className="inlink-padding">Careers</Link>
 
+        <Link onClick={() => props.setOpen(!props.open)} to="/test" className="inlink-heading-title">Test</Link>
 
       </div>
     </>

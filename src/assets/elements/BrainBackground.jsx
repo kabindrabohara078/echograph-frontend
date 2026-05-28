@@ -22,7 +22,7 @@ export default function BrainBackground() {
   ];
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+    <div className="absolute inset-0 pointer-events-none z-0">
       
       {/* Glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10 blur-3xl" />

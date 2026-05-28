@@ -1,199 +1,581 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useState } from "react";
 import { motion } from "motion/react";
 import "./Auth.css";
-import { Mail, Lock, User, ArrowRight } from "lucide-react";
+
+import {
+  Mail,
+  Lock,
+  User
+} from "lucide-react";
+
 import Typewriter from "../assets/elements/Typewriter";
 
+
+// ========================================================
+// GOOGLE LOGIN
+// ========================================================
+
+import {
+  GoogleLogin
+} from "@react-oauth/google";
+
+
+
 export default function AuthPage() {
-  const display_text = 'EchoGraph'
-  const [mode, setMode] = useState("login"); // login | register
+
+  // ========================================================
+  // STATE
+  // ========================================================
+
+  const display_text = "EchoGraph";
+
+  const [mode, setMode] = useState("login");
+
+  const [fname, setFname] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const [confPassword, setConfPassword] = useState("");
+
+  const [email, setEmail] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState("");
+
+  const [success, setSuccess] = useState("");
 
 
+  // ========================================================
+  // BACKEND URL
+  // ========================================================
 
-  const [fname, setFname] = useState('');
-  const [password, setPassword] = useState('');
-  const [confPassword, setConfPassword] = useState('');
-  const [email, setEmail] = useState('');
-
-
-  const handleLogin = async () => {
-
-    console.log("++++++++++++++++++++++++++");
-    console.log("I was called");
-
-    let payload = {};
-
-    if (mode === "login") {
-      payload = {
-        email,
-        password
-      }
-
-      console.log('logging............');
-      
-
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+  const API_URL = "http://127.0.0.1:8000";
 
 
-      console.log(payload);
-      console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
-      
+  // ========================================================
+  // NORMAL AUTH
+  // ========================================================
 
-    }
-    else if (mode === "register") {
+  const handleAuth = async () => {
 
+    setError("");
+    setSuccess("");
 
-      const fullName = fname.split(' ');
+    // ========================================================
+    // VALIDATIONS
+    // ========================================================
 
-      console.log(fullName);
-
-
-      let firstname = fullName[0];      //changed the var value of fname to avoid server error for now
-
-      let lastname = '';
-
-      if (fullName[1]) {
-        lastname = fullName[1];
-      }
-
-      console.log("Payload data.............");
-
-
-      payload = {
-        firstname,
-        lastname,
-        email,
-        password
-      }
-
-      console.log("Will send");
-
-      console.log(payload);
-      
-      
-
-
+    if (!email || !password) {
+      setError("Please fill all fields");
+      return;
     }
 
+    if (mode === "register") {
 
+      if (!fname) {
+        setError("Full name required");
+        return;
+      }
 
+      if (password !== confPassword) {
+        setError("Passwords do not match");
+        return;
+      }
+
+      if (password.length < 6) {
+        setError("Password must be at least 6 characters");
+        return;
+      }
+    }
+
+    setLoading(true);
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/${mode}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
 
-      
+      let payload = {};
+
+      // ========================================================
+      // LOGIN
+      // ========================================================
+
+      if (mode === "login") {
+
+        payload = {
+          email,
+          password
+        };
+      }
+
+      // ========================================================
+      // REGISTER
+      // ========================================================
+
+      else {
+
+        const fullName = fname.trim().split(" ");
+
+        const firstname = fullName[0];
+
+        const lastname = fullName.slice(1).join(" ");
+
+        payload = {
+          firstname,
+          lastname,
+          email,
+          password
+        };
+      }
+
+      // ========================================================
+      // API CALL
+      // ========================================================
+
+      const response = await fetch(
+        `${API_URL}/${mode}`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(payload),
+        }
+      );
 
       const data = await response.json();
-      console.log("Response", data);
 
+      // ========================================================
+      // ERROR
+      // ========================================================
 
+      if (!response.ok) {
 
+        setError(
+          data.detail || "Something went wrong"
+        );
 
-    } catch (err) {
-      console.log("Error:", err);
+        return;
+      }
+
+      // ========================================================
+      // SUCCESS
+      // ========================================================
+
+      if (data.access_token) {
+
+        localStorage.setItem(
+          "token",
+          data.access_token
+        );
+
+        localStorage.setItem(
+          "user_email",
+          email
+        );
+
+        setSuccess("Login successful");
+
+        console.log("JWT TOKEN:");
+        console.log(data.access_token);
+      }
+
+      else {
+
+        setSuccess(
+          data.message || "Success"
+        );
+      }
 
     }
-  }
+
+    catch (err) {
+
+      console.log(err);
+
+      setError(
+        "Server connection failed"
+      );
+    }
+
+    finally {
+
+      setLoading(false);
+    }
+  };
+
+
+  // ========================================================
+  // GOOGLE AUTH
+  // ========================================================
+
+
+
+<GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
 
 
 
 
+</GoogleOAuthProvider>
+  const handleGoogleSuccess = async (
+    credentialResponse
+  ) => {
+
+    try {
+
+      const response = await fetch(
+        `${API_URL}/google-auth`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            credential:
+              credentialResponse.credential
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+
+        setError(
+          data.detail || "Google auth failed"
+        );
+
+        return;
+      }
+
+      // ========================================================
+      // SAVE JWT
+      // ========================================================
+
+      localStorage.setItem(
+        "token",
+        data.access_token
+      );
+
+      localStorage.setItem(
+        "user_email",
+        data.email
+      );
+
+      setSuccess(
+        "Google authentication successful"
+      );
+
+      console.log(data);
+
+    }
+
+    catch (err) {
+
+      console.log(err);
+
+      setError(
+        "Google authentication failed"
+      );
+    }
+  };
 
 
+  // ========================================================
+  // GOOGLE ERROR
+  // ========================================================
+
+  const handleGoogleError = () => {
+
+    setError(
+      "Google Sign In Failed"
+    );
+  };
+
+
+  // ========================================================
+  // UI
+  // ========================================================
 
   return (
+
     <div className="auth-wrapper">
 
-
-
-      {/* Card */}
       <motion.div
         key={mode}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        initial={{
+          opacity: 0,
+          y: 20
+        }}
+        animate={{
+          opacity: 1,
+          y: 0
+        }}
+        transition={{
+          duration: 0.4
+        }}
         className="auth-card"
       >
 
+        {/* ================================================= */}
+        {/* LOGO */}
+        {/* ================================================= */}
+
         <div className="hero-auth">
-          <Typewriter show_text={display_text} />
+          <Typewriter
+            show_text={display_text}
+          />
         </div>
 
+        {/* ================================================= */}
+        {/* TITLE */}
+        {/* ================================================= */}
 
-        <h2 className="auth-title"
+        <h2
+          className="auth-title"
           style={{
-            color: '#095285'
+            color: "#095285"
           }}
         >
-          {mode === "login" ? "Welcome Back" : "Create Account"}
+          {
+            mode === "login"
+              ? "Welcome Back"
+              : "Create Account"
+          }
         </h2>
 
         <p className="auth-subtitle">
-          {mode === "login"
-            ? "Login to get your context again"
-            : "Sign up to start using EchoGraph"}
+
+          {
+            mode === "login"
+
+              ? "Login to get your context again"
+
+              : "Sign up to start using EchoGraph"
+          }
+
         </p>
 
-        {/* Inputs */}
-        {mode === "register" && (
-          <div className="input-box">
-            <User size={18} />
-            <input type="text" placeholder="Full Name" value={fname} onChange={(e) => setFname(e.target.value)} />
-          </div>
-        )}
+
+        {/* ================================================= */}
+        {/* ERROR */}
+        {/* ================================================= */}
+
+        {
+          error && (
+            <div
+              style={{
+                color: "red",
+                marginBottom: "10px",
+                fontSize: "14px"
+              }}
+            >
+              {error}
+            </div>
+          )
+        }
+
+
+        {/* ================================================= */}
+        {/* SUCCESS */}
+        {/* ================================================= */}
+
+        {
+          success && (
+            <div
+              style={{
+                color: "green",
+                marginBottom: "10px",
+                fontSize: "14px"
+              }}
+            >
+              {success}
+            </div>
+          )
+        }
+
+
+        {/* ================================================= */}
+        {/* REGISTER NAME */}
+        {/* ================================================= */}
+
+        {
+          mode === "register" && (
+
+            <div className="input-box">
+
+              <User size={18} />
+
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={fname}
+                onChange={(e) =>
+                  setFname(e.target.value)
+                }
+              />
+
+            </div>
+          )
+        }
+
+
+        {/* ================================================= */}
+        {/* EMAIL */}
+        {/* ================================================= */}
 
         <div className="input-box">
+
           <Mail size={18} />
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) =>
+              setEmail(e.target.value)
+            }
+          />
+
         </div>
+
+
+        {/* ================================================= */}
+        {/* PASSWORD */}
+        {/* ================================================= */}
 
         <div className="input-box">
+
           <Lock size={18} />
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) =>
+              setPassword(e.target.value)
+            }
+          />
+
         </div>
 
-        {mode === "register" && (
-          <div className="input-box">
-            <Lock size={18} />
-            <input type="password" placeholder="Confirm Password" value={confPassword} onChange={(e) => setConfPassword(e.target.value)} />
-          </div>
-        )}
 
-        {/* Button */}
-        <button className="primary-btn" onClick={handleLogin}>
-          {mode === "login" ? "Login" : "Create Account"}
+        {/* ================================================= */}
+        {/* CONFIRM PASSWORD */}
+        {/* ================================================= */}
 
-        </button>
+        {
+          mode === "register" && (
 
-        {/* Divider */}
-        <div className="divider">OR</div>
+            <div className="input-box">
 
-        {/* Google Auth */}
-        <button className="google-btn"
+              <Lock size={18} />
 
+              <input
+                type="password"
+                placeholder="Confirm Password"
+                value={confPassword}
+                onChange={(e) =>
+                  setConfPassword(e.target.value)
+                }
+              />
+
+            </div>
+          )
+        }
+
+
+        {/* ================================================= */}
+        {/* MAIN BUTTON */}
+        {/* ================================================= */}
+
+        <button
+          className="primary-btn"
+          onClick={handleAuth}
+          disabled={loading}
         >
 
-          {mode === "login" ? "Continue with Google" : "Connect with Google"}
+          {
+            loading
 
+              ? "Please wait..."
 
+              : (
+                mode === "login"
+                  ? "Login"
+                  : "Create Account"
+              )
+          }
 
         </button>
 
-        {/* Switch */}
+
+        {/* ================================================= */}
+        {/* DIVIDER */}
+        {/* ================================================= */}
+
+        <div className="divider">
+          OR
+        </div>
+
+
+        {/* ================================================= */}
+        {/* GOOGLE AUTH */}
+        {/* ================================================= */}
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
+
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+          />
+
+        </div>
+
+
+        {/* ================================================= */}
+        {/* SWITCH */}
+        {/* ================================================= */}
+
         <p className="switch-text">
-          {mode === "login"
-            ? "Don’t have an account?"
-            : "Already have an account?"}
-          <span onClick={() => setMode(mode === "login" ? "register" : "login")}>
-            {mode === "login" ? " Register" : " Login"}
+
+          {
+            mode === "login"
+
+              ? "Don’t have an account?"
+
+              : "Already have an account?"
+          }
+
+          <span
+            onClick={() =>
+              setMode(
+                mode === "login"
+                  ? "register"
+                  : "login"
+              )
+            }
+          >
+
+            {
+              mode === "login"
+                ? " Register"
+                : " Login"
+            }
+
           </span>
+
         </p>
+
       </motion.div>
     </div>
   );
