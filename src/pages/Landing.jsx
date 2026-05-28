@@ -19,7 +19,7 @@ export default function Landing() {
   const display_text = "INTELLIGENT";
 
   return (
-    <div>
+    <div className="main-landing">
 
       <br /> <br />
 

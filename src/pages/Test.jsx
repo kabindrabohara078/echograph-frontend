@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 const Test = () => {
 
-    const [contextType, setContextType] = useState('');
-    const [textInput, setTextInput] = useState('');
+    const [contextTypeGet, setContextTypeGet] = useState('');
+    const [contextTypeSend, setContextTypeSend] = useState('');
+    const [textInputSend, setTextInputSend] = useState('');
+    const [textInputGet, setTextInputGet] = useState('');
 
     // popup state
     const [popup, setPopup] = useState({
@@ -44,14 +46,14 @@ const Test = () => {
 
 
         // empty text validation
-        if (!textInput.trim()) {
+        if (!textInputSend.trim()) {
 
             showPopup('Nothing to send!');
             return;
         }
 
         // context validation
-        if (!contextType) {
+        if (!contextTypeSend) {
 
             showPopup('Please select a context');
             return;
@@ -64,8 +66,8 @@ const Test = () => {
 
 
         const payload = {
-            context: textInput,
-            type: contextType,
+            context: textInputSend,
+            type: contextTypeSend,
             score: '1'
         };
 
@@ -99,8 +101,8 @@ const Test = () => {
             }
             else {
                 showPopup('Response received!')
-                setTextInput('');
-                setContextType('');
+                setTextInputSend('');
+                setContextTypeSend('');
             }
 
             // clear inputs after success
@@ -118,14 +120,14 @@ const Test = () => {
 
 
         // empty text validation
-        if (!textInput.trim()) {
+        if (!textInputGet.trim()) {
 
             showPopup('Nothing to send!');
             return;
         }
 
         // context validation
-        if (!contextType) {
+        if (!contextTypeGet) {
 
             showPopup('Please select a context');
             return;
@@ -138,8 +140,8 @@ const Test = () => {
 
 
         const payload = {
-            query: textInput,
-            type: contextType
+            query: textInputGet,
+            type: contextTypeGet
         };
 
         console.log(payload);
@@ -167,8 +169,9 @@ const Test = () => {
 
             console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             // clear inputs after success
-            setTextInput('');
-            setContextType('');
+            setTextInputGet('');
+
+            setContextTypeGet('');
 
         } catch (err) {
 
@@ -194,7 +197,8 @@ const Test = () => {
         "plan",
         "reminder",
         "feedback",
-        "emotion"
+        "emotion",
+        "delete"
     ];
 
 
@@ -278,8 +282,8 @@ const Test = () => {
                 </h3>
 
                 <textarea
-                    value={textInput}
-                    onChange={(e) => setTextInput(e.target.value)}
+                    value={textInputSend}
+                    onChange={(e) => setTextInputSend(e.target.value)}
                     placeholder="Enter context..."
                     style={{
                         width: '100%',
@@ -311,7 +315,7 @@ const Test = () => {
 
                             <button
                                 key={item}
-                                onClick={() => setContextType(item)}
+                                onClick={() => setContextTypeSend(item)}
                                 style={{
 
                                     padding: '10px 16px',
@@ -320,12 +324,12 @@ const Test = () => {
                                     cursor: 'pointer',
 
                                     backgroundColor:
-                                        contextType === item
+                                        contextTypeSend === item
                                             ? '#095285'
                                             : '#e5e5e5',
 
                                     color:
-                                        contextType === item
+                                        contextTypeSend === item
                                             ? 'white'
                                             : 'black',
 
@@ -399,8 +403,8 @@ const Test = () => {
                 </h3>
 
                 <textarea
-                    value={textInput}
-                    onChange={(e) => setTextInput(e.target.value)}
+                    value={textInputGet}
+                    onChange={(e) => setTextInputGet(e.target.value)}
                     placeholder="Enter context related query..."
                     style={{
                         width: '100%',
@@ -432,7 +436,7 @@ const Test = () => {
 
                             <button
                                 key={item}
-                                onClick={() => setContextType(item)}
+                                onClick={() => setContextTypeGet(item)}
                                 style={{
 
                                     padding: '10px 16px',
@@ -441,12 +445,12 @@ const Test = () => {
                                     cursor: 'pointer',
 
                                     backgroundColor:
-                                        contextType === item
+                                        contextTypeGet === item
                                             ? '#095285'
                                             : '#e5e5e5',
 
                                     color:
-                                        contextType === item
+                                        contextTypeGet === item
                                             ? 'white'
                                             : 'black',
 
