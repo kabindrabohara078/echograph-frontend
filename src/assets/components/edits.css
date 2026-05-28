@@ -11,3 +11,54 @@
     background-color: #095285;
     color: white;
 }
+
+
+
+
+
+/* ================================================= */
+
+
+
+
+/* mobile-header-section */
+.notification{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  grid-row: 1/2;
+}
+
+
+.mobile-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 90px;
+  background-color: white;
+}
+.app-logo {
+  height: 100px;
+
+  /* background-color: aqua; */
+  /* background-color: #095285; */
+
+}
+.app-logo img{
+  margin-top:10px;
+  height: 90px;
+  width: 100%;
+}
+.hamburger-logo{
+  height: 100%;
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
