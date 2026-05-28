@@ -53,7 +53,7 @@
   padding: 12px;
   margin-bottom: 12px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
+  border:1px solid rgb(179, 175, 175);
 }
 
 .input-box input {
