@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./MainMenu.css";
-import GetStarted from '../../pages/GetStarted'
 
 export default function MainMenu(props) {
 
