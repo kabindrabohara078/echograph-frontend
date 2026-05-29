@@ -1,6 +1,7 @@
 import { motion } from "motion/react"
 import './Landing.css'
 import Typewriter from "../assets/elements/Typewriter";
+import GetStarted from "./GetStarted"
 
 import {
   Database,
@@ -75,7 +76,9 @@ export default function Landing() {
       </section>
       <br />
 
-      
+      <div className="get-started">
+        < GetStarted />
+      </div>
 
 
 
