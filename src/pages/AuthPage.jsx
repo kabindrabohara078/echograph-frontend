@@ -332,6 +332,9 @@ export default function AuthPage() {
         {/* LOGO */}
         {/* ================================================= */}
 
+        <br /><br /><br />
+
+      
         <div className="hero-auth">
 
           <Typewriter
@@ -343,7 +346,7 @@ export default function AuthPage() {
         {/* ================================================= */}
         {/* TITLE */}
         {/* ================================================= */}
-
+        
         <h2
           className="auth-title"
           style={{
