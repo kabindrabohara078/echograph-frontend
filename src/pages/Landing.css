@@ -17,15 +17,18 @@
     font-size: 12px;
 }
 
-.hero-section {
+.landing-hero-section {
     padding: 20px 0px 0px 10px;
 }
 
-.hero-content {
+.landing-hero-content {
     max-width: 100%;
 }
 
-.hero-line {
+.landing-hero-line {
+    padding: 0;
+    margin: 0;
+    
     font-size:30px;
     font-weight: bold;
     line-height: 1.1;
@@ -33,6 +36,7 @@
 
     animation: revealText 0.8s ease forwards;
 }
+
 
 
 @keyframes revealText {

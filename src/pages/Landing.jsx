@@ -1,8 +1,5 @@
 import { motion } from "motion/react"
 import './Landing.css'
-import BrainBackground from "../assets/elements/BrainBackground";
-
-import GetStarted from "./GetStarted";
 import Typewriter from "../assets/elements/Typewriter";
 
 import {
@@ -33,21 +30,29 @@ export default function Landing() {
       {/* Hero */}
 
 
-      <section className="hero-section">
-        <div className="hero-content">
+      <section className="landing-hero-section">
+        <div className="landing-hero-content">
 
-          <h1 className="hero-line">
+          <h1 className="landing-hero-line"
+          style={{
+            textAlign:'left'
+          }}
+          >
             Memory systems for
           </h1>
 
 
           <br />
 
-          <h1 className="hero-line gradient-text">
+          <h1 className="gradient-text">
             < Typewriter show_text={display_text} />
           </h1>
 
-          <h1 className="hero-line">
+          <h1 className="landing-hero-line"
+          style={{
+            textAlign:'left'
+          }}
+          >
             applications.
           </h1>
 
@@ -70,9 +75,7 @@ export default function Landing() {
       </section>
       <br />
 
-      <div className="get-started">
-        < GetStarted />
-      </div>
+      
 
 
 

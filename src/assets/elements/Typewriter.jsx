@@ -26,6 +26,7 @@ export default function Typewriter({show_text}) {
     <div style={{
       height:'70px',
       width:'100%',
+      textAlign:'left'
     }} className="Typewriter">
       {displayed}
     </div>
