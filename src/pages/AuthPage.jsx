@@ -163,6 +163,10 @@ export default function AuthPage() {
         "access_token" : "wefpm2odu2h9iwxan2do98ecniwcj"
       }
 
+      setTimeout(() => {
+          navigate("/test");
+        }, 2000);
+
       // ========================================================
       // ERROR
       // ========================================================
