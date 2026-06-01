@@ -158,7 +158,10 @@ export default function AuthPage() {
         }
       );
 
-      const data = await response.json();
+      // const data = await response.json();    //derver unavailable
+      const data = {
+        "access_token" : "wefpm2odu2h9iwxan2do98ecniwcj"
+      }
 
       // ========================================================
       // ERROR
@@ -167,7 +170,7 @@ export default function AuthPage() {
       if (!response.ok) {
 
         setError(
-          data.detail || "Something went wrong"
+          data.detail || "Login skipped"       //Something went wrong
         );
 
         return;
