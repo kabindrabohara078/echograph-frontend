@@ -145,18 +145,18 @@ export default function AuthPage() {
       // API CALL
       // ========================================================
 
-      const response = await fetch(
-        `${API_URL}/${mode}`,
-        {
-          method: "POST",
+      // const response = await fetch(
+      //   `${API_URL}/${mode}`,
+      //   {
+      //     method: "POST",
 
-          headers: {
-            "Content-Type": "application/json"
-          },
+      //     headers: {
+      //       "Content-Type": "application/json"
+      //     },
 
-          body: JSON.stringify(payload)
-        }
-      );
+      //     body: JSON.stringify(payload)
+      //   }
+      // );
 
       // const data = await response.json();    //derver unavailable
       const data = {
@@ -167,7 +167,7 @@ export default function AuthPage() {
       // ERROR
       // ========================================================
 
-      if (!response.ok) {
+      if (true) {    //!response.ok
 
         setError(
           data.detail || "Login skipped"       //Something went wrong
@@ -514,7 +514,7 @@ export default function AuthPage() {
               ? "Please wait..."
               : (
                 mode === "login"
-                  ? "Login"
+                  ? "Skip login <server disconnected temporarily>"
                   : "Create Account"
               )
           }
