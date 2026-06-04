@@ -15,7 +15,7 @@ export default function MainMenu(props) {
   return (
     <>
 
-     <div className={`mobile-menu ${props.open ? "show" : ""}`}>
+     <div className={`mobile-menu ${props.open ? "show" : ""} top-20`}>
         
         <Link className="cursor-pointer" to='/products' onClick={() => props.setOpen(!props.open)}>Product</Link>
           <Link to='/start' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Get Started</Link>
@@ -39,6 +39,10 @@ export default function MainMenu(props) {
           <Link onClick={() => props.setOpen(!props.open)} to="/careers" className="inlink-padding">Careers</Link>
 
         <Link className="cursor-pointer" onClick={() => props.setOpen(!props.open)} to="/test" >Test</Link>
+        <Link className="cursor-pointer" onClick={() => {
+          props.setDark(!props.dark)
+          props.setOpen(false)
+        }} > {props.dark? "Light mode":"Dark mode"} </Link>
 
       </div>
     </>

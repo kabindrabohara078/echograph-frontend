@@ -23,7 +23,7 @@ const Hero = (props) => {
                     <input
                         type="email"
                         placeholder="Enter your email to get API access"
-                        className={`${props.dark? "bg-black text-white": "bg-white text-black"} border border-gray-800 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 flex-grow`}
+                        className={`${props.dark? "bg-[#222] text-white": "bg-white text-black"} border border-gray-800 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500 flex-grow`}
                     />
                     <button className="border border-cyan-500/100 bg-white text-cyan-500 px-6 py-3 rounded-xl font-bold hover:bg-gray-200 transition-colors whitespace-nowrap">
                         Initialize Cluster
@@ -70,7 +70,7 @@ const LogoTicker = (props) => {
     const dummyCompanies = ["OmniAI", "VertexLabs", "Synapse", "QuantumSoft", "NeuralFlow", "DataArc"];
 
     return (
-        <section className={`border-y border-gray-900 ${props.dark? "bg-black" : "bg-white"} py-10 overflow-hidden relative`}>
+        <section className={`border-y border-gray-900 ${props.dark? "bg-[#222]" : "bg-white"} py-10 overflow-hidden relative`}>
             <div className="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-[gray] to-transparent z-10"></div>
             <div className="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-[gray] to-transparent z-10"></div>
 
@@ -231,7 +231,7 @@ const HowItWorks = (props) => {
 // ==========================================
 const Footer = () => {
     return (
-        <footer className="border-t border-gray-900 bg-black/60 pt-16 pb-12 px-6">
+        <footer className="border-t border-gray-900 bg-[#222]/60 pt-16 pb-12 px-6">
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
                 <div className="lg:col-span-2 space-y-4">
                     <div className="flex items-center space-x-2">
@@ -290,7 +290,7 @@ const Footer = () => {
 // ==========================================
 export default function LandingPage(props) {
     return (
-        <div className={`${props.dark ? 'bg-black' : 'bg-gray-100'} text-gray-100 min-h-screen font-sans selection:text-cyan-200`}>
+        <div className={`${props.dark ? 'bg-[#222]' : 'bg-gray-100'} text-gray-100 min-h-screen font-sans selection:text-cyan-200`}>
             <Hero dark={props.dark} />
             <LogoTicker dark={props.dark} />
             <Features dark={props.dark} />

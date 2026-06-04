@@ -8,7 +8,7 @@ import HamburgerMenu from "./HamburgerMenu";
 // ==========================================
 const Navbar = (props) => {
     return (
-        <nav className={`fixed top-0 left-0 w-full h-20 z-50 bg-${props.dark ? '[#0B0F19]/80' : 'white'} backdrop-blur-md border-b border-gray-800 px-6 py-4 flex items-center justify-between`}
+        <nav className={`fixed top-0 left-0 w-full h-20 z-50 bg-${props.dark ? 'black' : 'white'} backdrop-blur-md border-b border-gray-800 px-6 py-4 flex items-center justify-between`}
 
         >
             <div className="flex items-center space-x-2">
@@ -61,7 +61,7 @@ const Navbar = (props) => {
 
 
             <div className="nav-top-right-mobile">
-                <HamburgerMenu open={props.open} setOpen={props.setOpen} />
+                <HamburgerMenu open={props.open} setOpen={props.setOpen} dark={props.dark}/>
             </div>
 
         </nav>

@@ -18,7 +18,7 @@ const App = () => {
 
       <BrowserRouter>
         <Navbar open={open} setOpen={setOpen} dark={dark} setDark={setDark} authMode={authMode} setAuthMode={setAuthMode} />
-        < MainMenu open={open} setOpen={setOpen} />
+        < MainMenu open={open} setOpen={setOpen} dark={dark} setDark={setDark}/>
 
         <Routes>
 
