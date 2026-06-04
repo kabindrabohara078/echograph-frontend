@@ -1,0 +1,35 @@
+/* Mobile MainMenu Overlay */
+
+.mobile-menu a {
+
+  text-decoration: none;
+  font-size: 15px;
+  color: black;
+  font-weight: bold; 
+  margin-left: 20px;
+  line-height: 1;
+}
+.mobile-menu {
+  position: fixed;
+  top: 70px;
+  right: -100%;
+  width: 100%;
+  height: 100vh;
+  background-color: white;
+  z-index: 9999;
+  transition: right 0.3s ease;
+  overflow-y: hidden;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.mobile-menu.show {
+  right: 0;
+}
+.mobile-menu .inlink-padding{
+  margin-left: 50px;
+}
+.mobile-menu .inlink-heading-title{
+  cursor:none;
+}

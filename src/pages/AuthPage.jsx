@@ -20,7 +20,7 @@ import {
 
 import Typewriter from "../assets/elements/Typewriter";
 
-export default function AuthPage() {
+export default function AuthPage(props) {
 
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ export default function AuthPage() {
 
   const display_text = "EchoGraph";
 
-  const [mode, setMode] = useState("login");
+  // const [props.method, setprops.method] = useState("login");
 
   const [fname, setFname] = useState("");
 
@@ -73,7 +73,7 @@ export default function AuthPage() {
       return;
     }
 
-    if (mode === "register") {
+    if (props.method === "register") {
 
       if (!fname) {
 
@@ -109,7 +109,7 @@ export default function AuthPage() {
       // LOGIN
       // ========================================================
 
-      if (mode === "login") {
+      if (props.method === "login") {
 
         conn_method = "login";
 
@@ -146,7 +146,7 @@ export default function AuthPage() {
       // ========================================================
 
       // const response = await fetch(
-      //   `${API_URL}/${mode}`,
+      //   `${API_URL}/${props.method}`,
       //   {
       //     method: "POST",
 
@@ -317,8 +317,9 @@ export default function AuthPage() {
 
     <div className="auth-wrapper">
 
+
       <motion.div
-        key={mode}
+        key={props.method}
         initial={{
           opacity: 0,
           y: 20
@@ -332,6 +333,9 @@ export default function AuthPage() {
         }}
         className="auth-card"
       >
+       <br /><br /><br />
+       <br />
+
 
        
 
@@ -339,7 +343,7 @@ export default function AuthPage() {
         {/* LOGO */}
         {/* ================================================= */}
 
-        <br /><br /><br />
+       
 
       
         <div className="hero-auth">
@@ -362,7 +366,7 @@ export default function AuthPage() {
         >
 
           {
-            mode === "login"
+            props.method === "login"
               ? "Welcome Back"
               : "Create Account"
           }
@@ -372,7 +376,7 @@ export default function AuthPage() {
         <p className="auth-subtitle">
 
           {
-            mode === "login"
+            props.method === "login"
               ? "Login to Get Started"
               : "Sign up to start using EchoGraph"
           }
@@ -422,7 +426,7 @@ export default function AuthPage() {
         {/* ================================================= */}
 
         {
-          mode === "register" && (
+          props.method === "register" && (
 
             <div className="input-box">
 
@@ -484,7 +488,7 @@ export default function AuthPage() {
         {/* ================================================= */}
 
         {
-          mode === "register" && (
+          props.method === "register" && (
 
             <div className="input-box">
 
@@ -517,7 +521,7 @@ export default function AuthPage() {
             loading
               ? "Please wait..."
               : (
-                mode === "login"
+                props.method === props.method
                   ? "Skip login <server disconnected temporarily>"
                   : "Create Account"
               )
@@ -558,15 +562,15 @@ export default function AuthPage() {
         <p className="switch-text">
 
           {
-            mode === "login"
+            props.method === props.method
               ? "Don’t have an account?"
               : "Already have an account?"
           }
 
           <span
             onClick={() =>
-              setMode(
-                mode === "login"
+              props.setMethod(
+                props.method === "login"
                   ? "register"
                   : "login"
               )
@@ -574,7 +578,7 @@ export default function AuthPage() {
           >
 
             {
-              mode === "login"
+              props.method === "login"
                 ? " Register"
                 : " Login"
             }

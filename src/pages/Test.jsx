@@ -208,7 +208,6 @@ const Test = (props) => {
                     }
                 </div>
 
-                <br />
 
                 <button className='submit'
                     onClick={sendData}

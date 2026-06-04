@@ -1,70 +1,38 @@
 import React, { useState } from 'react'
-import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Landing from './pages/Landing';
-import Memory from './pages/Memory';
-import Navbar from './assets/components/Navbar';
-import AuthPage from './pages/AuthPage';
-import Demo from './pages/Demo';
-import Footer from './assets/components/Footer';
-import Test from './pages/Test';
-// import ScrollNavbar from './assets/components/ScrollNavbar';
-
+import LandingPage from './pages/LandingPage'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import AuthPage from './pages/AuthPage'
+import Navbar from './components/Navbar'
+import MainMenu from './components/MainMenu'
+import Test from './pages/Test.jsx'
 
 const App = () => {
 
-    const [popupText, setPopupText] = useState('');
-
-    function clearPop(){
-      setPopupText('');
-    }
-
+  const [dark, setDark] = useState(false)
+  const [authMode, setAuthMode] = useState("");
+  const [open, setOpen] = useState(false)
 
 
   return (
-    <>
+    <div>
+
       <BrowserRouter>
-        <div className="main-app">
+        <Navbar open={open} setOpen={setOpen} dark={dark} setDark={setDark} authMode={authMode} setAuthMode={setAuthMode} />
+        < MainMenu open={open} setOpen={setOpen} />
 
-          <div className="header">
+        <Routes>
 
-          < Navbar />
-          {/* < ScrollNavbar /> */}
+          < Route path='/' element={< LandingPage dark={dark} setDark={setDark} />} />
+          < Route path='/auth' element={< AuthPage method={authMode} setMethod={setAuthMode} dark={dark} setDark={setDark} />} />
+          < Route path='/memory' element={< LandingPage dark={dark} />} />
+          < Route path='/docs' element={< LandingPage dark={dark} />} />
+          < Route path='/about' element={< LandingPage dark={dark} />} />
+          < Route path='/test' element={< Test dark={dark} />} />
+          < Route path='*' element={< LandingPage dark={dark} />} />
 
-          </div>
-
-
-          <div className="page-content">
-
-            <Routes>
-
-              <Route path='/' element={<Landing />} />
-              <Route path='/start' element={< AuthPage />} />
-              <Route path='/features' element={<Memory />} />
-              <Route path='/demo' element={< Demo />} />
-
-              <Route path='/memory' element={<Memory />} />
-              <Route path='/docs' element={<Memory />} />
-              <Route path='/about' element={<Memory />} />
-              <Route path='/careers' element={<Memory />} />
-
-
-
-              <Route path='/test' element={< Test popupText={popupText} setPopupText={setPopupText} clearPop={clearPop}/>} />
-
-            </Routes>
-
-          </div>
-
-          <div className="footer">
-
-            < Footer />
-          </div>
-
-        </div>
-
+        </Routes>
       </BrowserRouter>
-    </>
+    </div>
   )
 }
 
