@@ -5,6 +5,7 @@ import AuthPage from './pages/AuthPage'
 import Navbar from './components/Navbar'
 import MainMenu from './components/MainMenu'
 import Test from './pages/Test.jsx'
+import ProductsPage from './pages/Products.jsx'
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
         <Routes>
 
           < Route path='/' element={< LandingPage dark={dark} setDark={setDark} />} />
+          < Route path='/products' element={< ProductsPage dark={dark}/>} />
           < Route path='/auth' element={< AuthPage method={authMode} setMethod={setAuthMode} dark={dark} setDark={setDark} />} />
           < Route path='/memory' element={< LandingPage dark={dark} />} />
           < Route path='/docs' element={< LandingPage dark={dark} />} />

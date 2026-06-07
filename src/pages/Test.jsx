@@ -11,7 +11,7 @@ const Test = (props) => {
 
 
 
-   
+
     const sendData = async () => {
 
         if (!textInputSend.trim()) {
@@ -57,8 +57,7 @@ const Test = (props) => {
 
             }
             else {
-                if (response.status == 200)
-                {
+                if (response.status == 200) {
                     props.setPopupText("Context sent")
                     setTextInputSend('');
                     setContextTypeSend('');
@@ -158,18 +157,28 @@ const Test = (props) => {
     return (
 
         <div className='test-main'
-
+            style={{
+                backgroundColor: props.dark ? '#222' : 'white'
+            }}
         >
 
-            < Popup text={ props.popupText } clearPop={props.clearPop} />
+            < Popup text={props.popupText} clearPop={props.clearPop} />
             <div className="memory">
 
-                <h1>
+                <h1
+                    style={{
+                        color: props.dark ? 'white' : 'black'
+                    }}
+                >
                     This is just a test page with no actual LLM involved
                 </h1>
 
 
-                <h3>
+                <h3
+                style={{
+                        color: props.dark ? 'white' : 'black'
+                    }}
+                >
                     The page sends user contexts and preferences to Database manually.
                 </h3>
 
@@ -177,6 +186,9 @@ const Test = (props) => {
                     value={textInputSend}
                     onChange={(e) => setTextInputSend(e.target.value)}
                     placeholder="Enter context..."
+                    style={{
+                        color: props.dark ? 'white' : 'black'
+                    }}
 
                 />
 
@@ -225,14 +237,25 @@ const Test = (props) => {
 
             {/* ============================================================================================================== */}
             <div className="search">
-                <h1>
+                <h1
+                style={{
+                        color: props.dark ? 'white' : 'black'
+                    }}
+                >
                     You can now ask context related questions
                 </h1>
-                <h3>
+                <h3
+                style={{
+                        color: props.dark ? 'white' : 'black'
+                    }}
+                >
                     Note that retrieval via LLM provides better results due to structured formatting.
                 </h3>
 
                 <textarea
+                style={{
+                        color: props.dark ? 'white' : 'black'
+                    }}
                     value={textInputGet}
                     onChange={(e) => setTextInputGet(e.target.value)}
                     placeholder="Enter context related query..." />
