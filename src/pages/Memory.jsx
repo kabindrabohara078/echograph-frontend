@@ -2,7 +2,11 @@ import React from 'react'
 
 const Memory = () => {
   return (
-    <div>This is memory</div>
+    <div
+    style={{
+      marginTop:'100px'
+    }}
+    >memory unavailable</div>
   )
 }
 

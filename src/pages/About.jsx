@@ -1,0 +1,13 @@
+import React from 'react'
+
+const About = () => {
+  return (
+    <div
+    style={{
+        marginTop:'100px'
+    }}
+    >About unavailable</div>
+  )
+}
+
+export default About

@@ -37,46 +37,46 @@ export default function MainMenu(props) {
           style={{
           color:props.dark? 'white':'black'
         }}
-          to='/features' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Features</Link>
-          <Link
-          style={{
-          color:props.dark? 'white':'black'
-        }}
-          to='/demo' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Demo Proview</Link>
-
-        <Link
+          to='/products' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Products</Link>
+        <Link to='/memory' onClick={() => props.setOpen(!props.open)}
         style={{
           color:props.dark? 'white':'black'
         }}
         className="cursor-pointer">Memory Engine</Link>
-          <Link
+                  <Link to='/memory' onClick={() => props.setOpen(!props.open)}
+
           style={{
           color:props.dark? 'white':'black'
         }}
           to='/memory/#search' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Semantic Search</Link>
-          <Link
+                  <Link to='/memory' onClick={() => props.setOpen(!props.open)}
+
           style={{
           color:props.dark? 'white':'black'
         }}
           to='/memory/#vector' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Vector Retrieval</Link>
-          <Link 
+                  <Link to='/memory' onClick={() => props.setOpen(!props.open)}
+
           style={{
           color:props.dark? 'white':'black'
         }}
           to='/memory/#ranking' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Adaptive Ranking</Link>
-          <Link 
+                 <Link to='/memory' onClick={() => props.setOpen(!props.open)}
+
           style={{
           color:props.dark? 'white':'black'
         }}
           to='/memory/#lifecycle' onClick={() => props.setOpen(!props.open)} className="inlink-padding">Memory Lifecycle</Link>
-          <Link 
+                 <Link to='/memory' onClick={() => props.setOpen(!props.open)}
+
           style={{
           color:props.dark? 'white':'black'
         }}
           to='/memory/#context' onClick={() => props.setOpen(!props.open)} className="inlink-padding">User Context</Link>
         
 
-        <Link 
+                <Link to='/docs' onClick={() => props.setOpen(!props.open)}
+
         style={{
           color:props.dark? 'white':'black'
         }}
@@ -93,22 +93,25 @@ export default function MainMenu(props) {
           color:props.dark? 'white':'black'
         }}
         className="cursor-pointer">Company</Link>
-          <Link 
+                  <Link to='/about' onClick={() => props.setOpen(!props.open)}
+
           style={{
           color:props.dark? 'white':'black'
         }}
           onClick={() => props.setOpen(!props.open)} to="/about" className="inlink-padding">About</Link>
-          <Link 
+                <Link to='/careers' onClick={() => props.setOpen(!props.open)}
+
           style={{
           color:props.dark? 'white':'black'
         }}
           onClick={() => props.setOpen(!props.open)} to="/careers" className="inlink-padding">Careers</Link>
 
-        <Link 
+                <Link to='/demo' onClick={() => props.setOpen(!props.open)}
+
         style={{
           color:props.dark? 'white':'black'
         }}
-        className="cursor-pointer" onClick={() => props.setOpen(!props.open)} to="/test" >Test</Link>
+        className="cursor-pointer" onClick={() => props.setOpen(!props.open)} to="/demo" >Demo</Link>
         <Link 
         style={{
           color:props.dark? 'white':'black'

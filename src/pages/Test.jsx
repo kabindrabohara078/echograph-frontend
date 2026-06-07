@@ -156,10 +156,8 @@ const Test = (props) => {
 
     return (
 
-        <div className='test-main'
-            style={{
-                backgroundColor: props.dark ? '#222' : 'white'
-            }}
+        <div className={`test-main ${props.dark? 'bg-[#333]':'bg-gray-100'}`}
+            
         >
 
             < Popup text={props.popupText} clearPop={props.clearPop} />
@@ -187,7 +185,8 @@ const Test = (props) => {
                     onChange={(e) => setTextInputSend(e.target.value)}
                     placeholder="Enter context..."
                     style={{
-                        color: props.dark ? 'white' : 'black'
+                        color: props.dark ? 'white' : 'black',
+                        backgroundColor: props.dark? '#222':'white'
                     }}
 
                 />
@@ -203,12 +202,12 @@ const Test = (props) => {
                                     backgroundColor:
                                         contextTypeSend === item
                                             ? '#095285'
-                                            : '#e5e5e5',
+                                            : props.dark? 'black':'#e5e5e5',
 
                                     color:
                                         contextTypeSend === item
                                             ? 'white'
-                                            : 'black',
+                                            : props.dark? '#e5e5e5':'black',
 
                                     fontSize: '14px',
                                     transition: '0.2s'
@@ -254,7 +253,8 @@ const Test = (props) => {
 
                 <textarea
                 style={{
-                        color: props.dark ? 'white' : 'black'
+                        color: props.dark ? 'white' : 'black',
+                        backgroundColor: props.dark? '#222':'white'
                     }}
                     value={textInputGet}
                     onChange={(e) => setTextInputGet(e.target.value)}
@@ -273,12 +273,14 @@ const Test = (props) => {
                                     backgroundColor:
                                         contextTypeGet === item
                                             ? '#095285'
-                                            : '#e5e5e5',
+                                            : props.dark? 'black':'#e5e5e5',
+                                            
 
                                     color:
                                         contextTypeGet === item
                                             ? 'white'
-                                            : 'black',
+                                            : props.dark? '#e5e5e5':'black',
+                                            
 
                                     fontSize: '14px',
                                     transition: '0.2s'

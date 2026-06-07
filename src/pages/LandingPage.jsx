@@ -248,7 +248,7 @@ const Footer = () => {
                     <ul className="space-y-2 text-sm text-gray-300">
                         <li><a href="#" className="hover:text-white transition-colors">API Reference</a></li>
                         <li><a href="#" className="hover:text-white transition-colors">pgvector Engine</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Pricing Options</a></li>
+                        {/* <li><a href="#" className="hover:text-white transition-colors">Pricing Options</a></li> */}
                         <li><a href="#" className="hover:text-white transition-colors">Changelog</a></li>
                     </ul>
                 </div>
@@ -257,7 +257,11 @@ const Footer = () => {
                     <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-4">Company</h4>
                     <ul className="space-y-2 text-sm text-gray-300">
                         <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="#" className="hover:text-white transition-colors">Careers <span className="text-[10px] bg-cyan-950 text-cyan-400 px-1.5 py-0.5 rounded ml-1">Hiring</span></a></li>
+                        <li><Link to='/careers' className="hover:text-white transition-colors">Careers 
+                        
+                        {/* <span className="text-[10px] bg-cyan-950 text-cyan-400 px-1.5 py-0.5 rounded ml-1">Hiring
+                            </span> */}
+                            </Link></li>
                         <li><a href="#" className="hover:text-white transition-colors">Vision Blueprint</a></li>
                         <li><a href="#" className="hover:text-white transition-colors">Brand Assets</a></li>
                     </ul>
@@ -266,7 +270,7 @@ const Footer = () => {
                 <div>
                     <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-4">Connect</h4>
                     <ul className="space-y-2 text-sm text-gray-300">
-                        <li><a href="#" className="hover:text-white transition-colors">GitHub Repository</a></li>
+                        <li><a href="https://github.com/kabindrabohara078/echograph-frontend" target="_blank" className="hover:text-white transition-colors">GitHub Repository</a></li>
                         <li><a href="#" className="hover:text-white transition-colors">Discord Community</a></li>
                         <li><a href="#" className="hover:text-white transition-colors">X / Twitter</a></li>
                         <li><a href="#" className="hover:text-white transition-colors">System Status</a></li>
@@ -290,7 +294,7 @@ const Footer = () => {
 // ==========================================
 export default function LandingPage(props) {
     return (
-        <div className={`${props.dark ? 'bg-[#222]' : 'bg-gray-100'} text-gray-100 min-h-screen font-sans selection:text-cyan-200`}>
+        <div className={`${props.dark ? 'bg-[#333]' : 'bg-gray-100'} text-gray-100 min-h-screen font-sans selection:text-cyan-200`}>
             <Hero dark={props.dark} />
             <LogoTicker dark={props.dark} />
             <Features dark={props.dark} />

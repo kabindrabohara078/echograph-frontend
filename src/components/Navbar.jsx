@@ -22,7 +22,7 @@ const Navbar = (props) => {
                 <Link to="/memory" className="hover:text-cyan-400 transition-colors">Memory Engine</Link>
                 <Link to="/docs" className="hover:text-cyan-400 transition-colors">Docs</Link>
                 <Link to="/about" className="hover:text-cyan-400 transition-colors">About</Link>
-                <Link to="/test" className="hover:text-cyan-400 transition-colors">Test</Link>
+                <Link to="/demo" className="hover:text-cyan-400 transition-colors">Demo</Link>
             </div>
 
 

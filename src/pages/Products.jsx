@@ -38,7 +38,7 @@ const fetchContext = async () => {
     };
 
     return (
-        <div className={`${props.dark ? 'bg-[#222]' : 'bg-gray-100'} text-gray-100 min-h-screen font-sans selection:bg-cyan-500/30 selection:text-cyan-200 pt-24`}>
+        <div className={`${props.dark ? 'bg-[#333]' : 'bg-gray-100'} text-gray-100 min-h-screen font-sans selection:bg-cyan-500/30 selection:text-cyan-200 pt-24`}>
             {/* Background Decorative Grid/Orbs */}
             <div className="absolute w-full h-[60vh] bg-[linear-gradient(to_right,#1f293710_1px,transparent_1px),linear-gradient(to_bottom,#1f293710_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] -z-10"></div>
             <div className="absolute w-80 h-80 bg-cyan-500/5 rounded-full blur-3xl top-40 right-10 -z-10"></div>
