@@ -1,74 +1,36 @@
 import React, { useEffect, useState } from 'react';
+import './Test.css'
+import Popup from '../assets/elements/Popup';
 
-const Test = () => {
+const Test = (props) => {
 
     const [contextTypeGet, setContextTypeGet] = useState('');
     const [contextTypeSend, setContextTypeSend] = useState('');
     const [textInputSend, setTextInputSend] = useState('');
     const [textInputGet, setTextInputGet] = useState('');
 
-    // popup state
-    const [popup, setPopup] = useState({
-        show: false,
-        message: ''
-    });
 
-    // auto hide popups
-    useEffect(() => {
 
-        if (popup.show) {
-
-            const timer = setTimeout(() => {
-
-                setPopup({
-                    show: false,
-                    message: ''
-                });
-
-            }, 3000);
-
-            return () => clearTimeout(timer);
-        }
-
-    }, [popup]);
-
-    const showPopup = (message) => {
-
-        setPopup({
-            show: true,
-            message
-        });
-
-    };
-
+   
     const sendData = async () => {
 
-
-
-        // empty text validation
         if (!textInputSend.trim()) {
-
-            showPopup('Nothing to send!');
+            props.setPopupText('Nothing to send')
             return;
         }
 
-        // context validation
         if (!contextTypeSend) {
-
-            showPopup('Please select a context');
+            props.setPopupText('Please select a context')
             return;
         }
 
         const token = localStorage.getItem("token");
 
-
-        console.log(token);
-
-
         const payload = {
             context: textInputSend,
             type: contextTypeSend,
-            score: '1'
+            score: '1',
+            node_life: '23'
         };
 
         console.log(payload);
@@ -89,47 +51,42 @@ const Test = () => {
 
             const data = await response.json();
 
-
-
-            console.log("+++++++++++++++++++++++++++++++++++++++++++++++++");
-
-            console.log(response.status);   //status code
-
             if (response.status === 401) {
 
-                showPopup('Please login first');
+                props.setPopupText("Please login first")
+
             }
             else {
-                showPopup('Response received!')
-                setTextInputSend('');
-                setContextTypeSend('');
+                if (response.status == 200)
+                {
+                    props.setPopupText("Context sent")
+                    setTextInputSend('');
+                    setContextTypeSend('');
+                }
+                else
+                    props.setPopupText("An error occured");
+
             }
-
-            // clear inputs after success
-
         } catch (err) {
 
             console.log("Error:", err);
 
-            showPopup('Failed to send context');
+            props.setPopupText("Failed to send context")
         }
     };
 
     const getData = async () => {
-
-
-
         // empty text validation
         if (!textInputGet.trim()) {
 
-            showPopup('Nothing to send!');
+            // showPopup('Nothing to send!');
             return;
         }
 
         // context validation
         if (!contextTypeGet) {
 
-            showPopup('Please select a context');
+            // showPopup('Please select a context');
             return;
         }
 
@@ -162,13 +119,10 @@ const Test = () => {
 
             const data = await response.json();
 
-            console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            // showPopup('Graph');
 
-            showPopup('--------------------------Response from Graph--------------------------');
             console.log(data);
 
-            console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-            // clear inputs after success
             setTextInputGet('');
 
             setContextTypeGet('');
@@ -177,10 +131,9 @@ const Test = () => {
 
             console.log("Error:", err);
 
-            showPopup('Failed to send query context');
+            // showPopup('Failed to send query context');
         }
     };
-
 
     const contextOptions = [
         "fact",
@@ -204,80 +157,19 @@ const Test = () => {
 
     return (
 
-        <div
-            style={{
-                width: '100%',
-                // minHeight: '100vh',
-                overflowX: 'hidden',
-                boxSizing: 'border-box'
-                // padding: '20px',
+        <div className='test-main'
 
-            }}
         >
-            <div className="memory"
-            style={{
-            height:'100vh',
-            padding:'30px',
-            width:'100%'
-            }}
-            >
 
+            < Popup text={ props.popupText } clearPop={props.clearPop} />
+            <div className="memory">
 
-
-
-
-
-                {/* popup */}
-                {
-                    popup.show && (
-                        <div
-                            style={{
-                                position: 'fixed',
-                                top: '100px',
-                                left: 0,
-                                width: '100%',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                zIndex: 999
-                            }}
-                        >
-                            <div
-                                style={{
-                                    backgroundColor: '#095285',
-                                    color: 'white',
-                                    padding: '12px 20px',
-                                    borderRadius: '10px',
-                                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                                    fontSize: '15px'
-                                }}
-                            >
-                                {popup.message}
-                            </div>
-                        </div>
-                    )
-                }
-
-                <br />
-                <br />
-
-                <h1
-                    style={{
-                        fontSize: 'clamp(28px, 6vw, 40px)',
-                        textAlign: 'center',
-                        marginBottom: '20px'
-                    }}
-                >
+                <h1>
                     This is just a test page with no actual LLM involved
                 </h1>
 
 
-                <h3
-                    style={{
-                        textAlign: 'center',
-                        marginBottom: '25px',
-                        fontWeight: '400'
-                    }}
-                >
+                <h3>
                     The page sends user contexts and preferences to Database manually.
                 </h3>
 
@@ -285,44 +177,17 @@ const Test = () => {
                     value={textInputSend}
                     onChange={(e) => setTextInputSend(e.target.value)}
                     placeholder="Enter context..."
-                    style={{
-                        width: '100%',
-                        minHeight: '120px',
-                        border: '1px solid grey',
-                        borderRadius: '10px',
-                        fontSize: '18px',
-                        padding: '12px',
-                        resize: 'vertical',
-                        boxSizing: 'border-box',
-                        marginBottom: '20px'
-                    }}
+
                 />
 
-
-
-                <div
-                    style={{
-                        width: '100%',
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '10px',
-                        marginTop: '20px',
-                        marginBottom: '20px'
-                    }}
-                >
+                <div className='options'>
                     {
                         contextOptions.map((item) => (
 
-                            <button
+                            <button className='option'
                                 key={item}
                                 onClick={() => setContextTypeSend(item)}
                                 style={{
-
-                                    padding: '10px 16px',
-                                    borderRadius: '20px',
-                                    border: 'none',
-                                    cursor: 'pointer',
-
                                     backgroundColor:
                                         contextTypeSend === item
                                             ? '#095285'
@@ -345,105 +210,44 @@ const Test = () => {
 
                 <br />
 
-                <button
+                <button className='submit'
                     onClick={sendData}
-                    style={{
-                        width: '100%',
-                        height: '50px',
-                        backgroundColor: '#095285',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '10px',
-                        fontSize: '16px',
-                        cursor: 'pointer'
-                    }}
                 >
                     Send Context
                 </button>
-
-
-
-
-
-
+                <br />
+                <br />
+                <br />
+                <br />
 
 
             </div>
 
+
             {/* ============================================================================================================== */}
-            <div className="search"
-            style={{
-            padding:'30px',
-
-            height:'90vh',
-            width:'100%'
-            }}
-            >
-
-
-                <h1
-                    style={{
-                        fontSize: 'clamp(28px, 6vw, 40px)',
-                        textAlign: 'center',
-                        marginBottom: '20px'
-                    }}
-                >
+            <div className="search">
+                <h1>
                     You can now ask context related questions
                 </h1>
-
-
-                <h3
-                    style={{
-                        textAlign: 'center',
-                        marginBottom: '25px',
-                        fontWeight: '400'
-                    }}
-                >
+                <h3>
                     Note that retrieval via LLM provides better results due to structured formatting.
                 </h3>
 
                 <textarea
                     value={textInputGet}
                     onChange={(e) => setTextInputGet(e.target.value)}
-                    placeholder="Enter context related query..."
-                    style={{
-                        width: '100%',
-                        minHeight: '120px',
-                        border: '1px solid grey',
-                        borderRadius: '10px',
-                        fontSize: '18px',
-                        padding: '12px',
-                        resize: 'vertical',
-                        boxSizing: 'border-box',
-                        marginBottom: '20px'
-                    }}
-                />
+                    placeholder="Enter context related query..." />
 
 
 
-                <div
-                    style={{
-                        width: '100%',
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '10px',
-                        marginTop: '20px',
-                        marginBottom: '20px'
-                    }}
-                >
+                <div className='options'>
                     {
                         contextOptions.map((item) => (
 
-                            <button
+                            <button className='option'
                                 key={item}
                                 onClick={() => setContextTypeGet(item)}
                                 style={{
-
-                                    padding: '10px 16px',
-                                    borderRadius: '20px',
-                                    border: 'none',
-                                    cursor: 'pointer',
-
                                     backgroundColor:
                                         contextTypeGet === item
                                             ? '#095285'
@@ -466,25 +270,9 @@ const Test = () => {
 
                 <br />
 
-                <button
-                    onClick={getData}
-                    style={{
-                        width: '100%',
-                        height: '50px',
-                        backgroundColor: '#095285',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '10px',
-                        fontSize: '16px',
-                        cursor: 'pointer'
-                    }}
-                >
+                <button className='submit'>
                     Get related Context
                 </button>
-
-
-
-
             </div>
 
         </div>

@@ -1,6 +1,15 @@
-import { GoogleOAuthProvider } from "@react-oauth/google";
+
+import {
+  GoogleLogin
+} from "@react-oauth/google";
+
 import { useState } from "react";
+
 import { motion } from "motion/react";
+
+import { useNavigate } from "react-router-dom";
+
+
 import "./Auth.css";
 
 import {
@@ -11,18 +20,10 @@ import {
 
 import Typewriter from "../assets/elements/Typewriter";
 
-
-// ========================================================
-// GOOGLE LOGIN
-// ========================================================
-
-import {
-  GoogleLogin
-} from "@react-oauth/google";
-
-
-
 export default function AuthPage() {
+
+  const navigate = useNavigate();
+
 
   // ========================================================
   // STATE
@@ -46,13 +47,11 @@ export default function AuthPage() {
 
   const [success, setSuccess] = useState("");
 
-
   // ========================================================
   // BACKEND URL
   // ========================================================
 
   const API_URL = "http://127.0.0.1:8000";
-
 
   // ========================================================
   // NORMAL AUTH
@@ -68,29 +67,39 @@ export default function AuthPage() {
     // ========================================================
 
     if (!email || !password) {
+
       setError("Please fill all fields");
+
       return;
     }
 
     if (mode === "register") {
 
       if (!fname) {
+
         setError("Full name required");
+
         return;
       }
 
       if (password !== confPassword) {
+
         setError("Passwords do not match");
+
         return;
       }
 
       if (password.length < 6) {
+
         setError("Password must be at least 6 characters");
+
         return;
       }
     }
 
     setLoading(true);
+
+    let conn_method = "";
 
     try {
 
@@ -101,6 +110,8 @@ export default function AuthPage() {
       // ========================================================
 
       if (mode === "login") {
+
+        conn_method = "login";
 
         payload = {
           email,
@@ -113,6 +124,8 @@ export default function AuthPage() {
       // ========================================================
 
       else {
+
+        conn_method = "register";
 
         const fullName = fname.trim().split(" ");
 
@@ -138,10 +151,10 @@ export default function AuthPage() {
           method: "POST",
 
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
 
-          body: JSON.stringify(payload),
+          body: JSON.stringify(payload)
         }
       );
 
@@ -176,19 +189,19 @@ export default function AuthPage() {
           email
         );
 
-        setSuccess("Login successful");
+        setSuccess("Authentication successful");
 
-        console.log("JWT TOKEN:");
-        console.log(data.access_token);
-      }
 
-      else {
+        setTimeout(() => {
+          navigate("/test");
+        }, 2000);
+
+
 
         setSuccess(
           data.message || "Success"
         );
       }
-
     }
 
     catch (err) {
@@ -204,21 +217,12 @@ export default function AuthPage() {
 
       setLoading(false);
     }
-  };
 
-
+  }
   // ========================================================
   // GOOGLE AUTH
   // ========================================================
 
-
-
-<GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-
-
-
-
-</GoogleOAuthProvider>
   const handleGoogleSuccess = async (
     credentialResponse
   ) => {
@@ -231,13 +235,13 @@ export default function AuthPage() {
           method: "POST",
 
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
 
           body: JSON.stringify({
             credential:
               credentialResponse.credential
-          }),
+          })
         }
       );
 
@@ -270,8 +274,11 @@ export default function AuthPage() {
         "Google authentication successful"
       );
 
+  
+
       console.log(data);
 
+      navigate("/test");
     }
 
     catch (err) {
@@ -284,7 +291,6 @@ export default function AuthPage() {
     }
   };
 
-
   // ========================================================
   // GOOGLE ERROR
   // ========================================================
@@ -295,7 +301,6 @@ export default function AuthPage() {
       "Google Sign In Failed"
     );
   };
-
 
   // ========================================================
   // UI
@@ -321,14 +326,18 @@ export default function AuthPage() {
         className="auth-card"
       >
 
+       
+
         {/* ================================================= */}
         {/* LOGO */}
         {/* ================================================= */}
 
         <div className="hero-auth">
+
           <Typewriter
             show_text={display_text}
           />
+
         </div>
 
         {/* ================================================= */}
@@ -341,25 +350,24 @@ export default function AuthPage() {
             color: "#095285"
           }}
         >
+
           {
             mode === "login"
               ? "Welcome Back"
               : "Create Account"
           }
+
         </h2>
 
         <p className="auth-subtitle">
 
           {
             mode === "login"
-
-              ? "Login to get your context again"
-
+              ? "Login to Get Started"
               : "Sign up to start using EchoGraph"
           }
 
         </p>
-
 
         {/* ================================================= */}
         {/* ERROR */}
@@ -367,6 +375,7 @@ export default function AuthPage() {
 
         {
           error && (
+
             <div
               style={{
                 color: "red",
@@ -379,13 +388,13 @@ export default function AuthPage() {
           )
         }
 
-
         {/* ================================================= */}
         {/* SUCCESS */}
         {/* ================================================= */}
 
         {
           success && (
+
             <div
               style={{
                 color: "green",
@@ -397,7 +406,6 @@ export default function AuthPage() {
             </div>
           )
         }
-
 
         {/* ================================================= */}
         {/* REGISTER NAME */}
@@ -423,7 +431,6 @@ export default function AuthPage() {
           )
         }
 
-
         {/* ================================================= */}
         {/* EMAIL */}
         {/* ================================================= */}
@@ -443,7 +450,6 @@ export default function AuthPage() {
 
         </div>
 
-
         {/* ================================================= */}
         {/* PASSWORD */}
         {/* ================================================= */}
@@ -462,7 +468,6 @@ export default function AuthPage() {
           />
 
         </div>
-
 
         {/* ================================================= */}
         {/* CONFIRM PASSWORD */}
@@ -488,7 +493,6 @@ export default function AuthPage() {
           )
         }
 
-
         {/* ================================================= */}
         {/* MAIN BUTTON */}
         {/* ================================================= */}
@@ -501,9 +505,7 @@ export default function AuthPage() {
 
           {
             loading
-
               ? "Please wait..."
-
               : (
                 mode === "login"
                   ? "Login"
@@ -513,7 +515,6 @@ export default function AuthPage() {
 
         </button>
 
-
         {/* ================================================= */}
         {/* DIVIDER */}
         {/* ================================================= */}
@@ -521,7 +522,6 @@ export default function AuthPage() {
         <div className="divider">
           OR
         </div>
-
 
         {/* ================================================= */}
         {/* GOOGLE AUTH */}
@@ -541,7 +541,6 @@ export default function AuthPage() {
 
         </div>
 
-
         {/* ================================================= */}
         {/* SWITCH */}
         {/* ================================================= */}
@@ -550,9 +549,7 @@ export default function AuthPage() {
 
           {
             mode === "login"
-
               ? "Don’t have an account?"
-
               : "Already have an account?"
           }
 
@@ -577,6 +574,7 @@ export default function AuthPage() {
         </p>
 
       </motion.div>
+
     </div>
   );
 }

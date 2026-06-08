@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Landing from './pages/Landing';
@@ -13,6 +13,11 @@ import Test from './pages/Test';
 
 const App = () => {
 
+    const [popupText, setPopupText] = useState('');
+
+    function clearPop(){
+      setPopupText('');
+    }
 
 
 
@@ -45,7 +50,7 @@ const App = () => {
 
 
 
-              <Route path='/test' element={< Test />} />
+              <Route path='/test' element={< Test popupText={popupText} setPopupText={setPopupText} clearPop={clearPop}/>} />
 
             </Routes>
 

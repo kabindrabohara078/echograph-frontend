@@ -18,7 +18,7 @@ createRoot(
   <StrictMode>
 
     <GoogleOAuthProvider
-      clientId="865104194236-ri00saam6ain19tvrlvdlj395qclc5tj.apps.googleusercontent.com"
+      clientId="865104194236-93jf4vlg7r9t2i3c19kqgejqb35mn1kl.apps.googleusercontent.com"
     >
 
       <App />
