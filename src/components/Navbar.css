@@ -1,27 +1,16 @@
-.nav-top-right-pc{
+.nav-top-right-pc {
     display: none;
 }
 
-
-
-
-
-
-@media (min-width:1024px) {
+@media (min-width: 768px) {
+    .nav-top-right-mobile {
+        display: none;
+    }
     
-.nav-top-right-mobile{
-    display: none;
-}
-.nav-top-right-pc{
-    display: block;
-    /* background-color: aquamarine; */
-    width: 190px;
-    
-    
-}
-
-.mode-switch{
-
-}
-
+    .nav-top-right-pc {
+        display: flex;
+        align-items: center;
+        width: auto;
+        flex-shrink: 0;
+    }
 }

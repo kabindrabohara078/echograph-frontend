@@ -51,7 +51,7 @@ export default function AuthPage(props) {
   // BACKEND URL
   // ========================================================
 
-  const API_URL = "https://74.220.48.0/24:8000";
+  const API_URL = "http://localhost:8000";
 
   // ========================================================
   // NORMAL AUTH
@@ -67,165 +67,85 @@ export default function AuthPage(props) {
     // ========================================================
 
     if (!email || !password) {
-
       setError("Please fill all fields");
-
       return;
     }
 
     if (props.method === "register") {
-
       if (!fname) {
-
         setError("Full name required");
-
         return;
       }
-
       if (password !== confPassword) {
-
         setError("Passwords do not match");
-
         return;
       }
-
       if (password.length < 6) {
-
         setError("Password must be at least 6 characters");
-
         return;
       }
     }
 
     setLoading(true);
 
-    let conn_method = "";
-
     try {
-
       let payload = {};
-
-      // ========================================================
-      // LOGIN
-      // ========================================================
+      const endpoint = props.method === "login" ? "login" : "register";
 
       if (props.method === "login") {
-
-        conn_method = "login";
-
-        payload = {
-          email,
-          password
-        };
-      }
-
-      // ========================================================
-      // REGISTER
-      // ========================================================
-
-      else {
-
-        conn_method = "register";
-
+        payload = { email, password };
+      } else {
         const fullName = fname.trim().split(" ");
-
         const firstname = fullName[0];
-
-        const lastname = fullName.slice(1).join(" ");
-
-        payload = {
-          firstname,
-          lastname,
-          email,
-          password
-        };
+        const lastname = fullName.slice(1).join(" ") || "";
+        payload = { firstname, lastname, email, password };
       }
 
-      // ========================================================
-      // API CALL
-      // ========================================================
+      const response = await fetch(
+        `${API_URL}/${endpoint}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        }
+      );
 
-      // const response = await fetch(
-      //   `${API_URL}/${props.method}`,
-      //   {
-      //     method: "POST",
+      const data = await response.json();
 
-      //     headers: {
-      //       "Content-Type": "application/json"
-      //     },
-
-      //     body: JSON.stringify(payload)
-      //   }
-      // );
-
-      // const data = await response.json();    //derver unavailable
-      const data = {
-        "access_token" : "wefpm2odu2h9iwxan2do98ecniwcj"
-      }
-
-      setTimeout(() => {
-          navigate("/test");
-        }, 2000);
-
-      // ========================================================
-      // ERROR
-      // ========================================================
-
-      if (true) {    //!response.ok
-
-        setError(
-          data.detail || "Login skipped"       //Something went wrong
-        );
-
+      if (!response.ok) {
+        setError(data.detail || "Authentication failed");
         return;
       }
 
-      // ========================================================
-      // SUCCESS
-      // ========================================================
-
-      if (data.access_token) {
-
-        localStorage.setItem(
-          "token",
-          data.access_token
-        );
-
-        localStorage.setItem(
-          "user_email",
-          email
-        );
-
-        setSuccess("Authentication successful");
-
-
-        setTimeout(() => {
-          navigate("/test");
-        }, 2000);
-
-
-
-        setSuccess(
-          data.message || "Success"
-        );
+      if (props.method === "register") {
+        setSuccess("Account created successfully! Logging in...");
+        const loginRes = await fetch(`${API_URL}/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        const loginData = await loginRes.json();
+        if (loginRes.ok && loginData.access_token) {
+          if (props.updateAuth) props.updateAuth(loginData.access_token, email, loginData.name || fname);
+          setTimeout(() => navigate("/test"), 1000);
+        } else {
+          props.setMethod("login");
+        }
+      } else if (data.access_token) {
+        if (props.updateAuth) props.updateAuth(data.access_token, email, data.name || email.split("@")[0]);
+        setSuccess("Login successful!");
+        setTimeout(() => navigate("/test"), 1000);
       }
-    }
-
-    catch (err) {
-
+    } catch (err) {
       console.log(err);
-
-      setError(
-        "Server connection failed"
-      );
-    }
-
-    finally {
-
+      setError("Server connection failed");
+    } finally {
       setLoading(false);
     }
+  };
 
-  }
   // ========================================================
   // GOOGLE AUTH
   // ========================================================
@@ -264,24 +184,20 @@ export default function AuthPage(props) {
       }
 
       // ========================================================
-      // SAVE JWT
+      // SAVE JWT & UPDATE AUTH STATE
       // ========================================================
 
-      localStorage.setItem(
-        "token",
-        data.access_token
-      );
-
-      localStorage.setItem(
-        "user_email",
-        data.email
-      );
+      if (props.updateAuth) {
+        props.updateAuth(data.access_token, data.email, data.name);
+      } else {
+        localStorage.setItem("token", data.access_token);
+        localStorage.setItem("user_email", data.email);
+        localStorage.setItem("user_name", data.name || "");
+      }
 
       setSuccess(
         "Google authentication successful"
       );
-
-  
 
       console.log(data);
 
@@ -521,12 +437,11 @@ export default function AuthPage(props) {
             loading
               ? "Please wait..."
               : (
-                props.method === props.method
-                  ? "Skip login <server disconnected temporarily>"
+                props.method === "login"
+                  ? "Login"
                   : "Create Account"
               )
           }
-
         </button>
 
         {/* ================================================= */}

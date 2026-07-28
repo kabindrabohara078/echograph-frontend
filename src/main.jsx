@@ -18,7 +18,7 @@ createRoot(
   <StrictMode>
 
     <GoogleOAuthProvider
-      clientId="843357568131-mbobmodtgr67nv8122tn29mkq2ma2ck4.apps.googleusercontent.com"
+      clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || "843357568131-mbobmodtgr67nv8122tn29mkq2ma2ck4.apps.googleusercontent.com"}
     >
 
       <App />
