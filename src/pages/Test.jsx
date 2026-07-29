@@ -120,7 +120,7 @@ const Test = (props) => {
 
         try {
             const response = await fetch(
-                "hhttps://echograph-backend-production.up.railway.app/search",
+                "https://echograph-backend-production.up.railway.app/search",
                 {
                     method: "POST",
                     headers: {
