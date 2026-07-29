@@ -51,7 +51,7 @@ export default function AuthPage(props) {
   // BACKEND URL
   // ========================================================
 
-  const API_URL = "https://echograph-backend-production.up.railway.app/";
+  const API_URL = (import.meta.env.VITE_API_URL || "https://echograph-backend-production.up.railway.app").replace(/\/+$/, "");
 
   // ========================================================
   // NORMAL AUTH
