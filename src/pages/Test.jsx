@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Popup from '../assets/elements/Popup';
+import { Navigate } from 'react-router-dom';
 
 const demoSampleResults = [
     {
@@ -38,6 +39,10 @@ const Test = (props) => {
     const [searching, setSearching] = useState(false);
     const [storing, setStoring] = useState(false);
     const [isDemoData, setIsDemoData] = useState(true);
+
+    if (!props.token) {
+        return <Navigate to="/auth" replace />;
+    }
 
     const sendData = async () => {
         if (!textInputSend.trim()) {
