@@ -71,7 +71,7 @@ const Test = (props) => {
 
         try {
             const response = await fetch(
-                "http://localhost:8000/memory",
+                "https://echograph-backend-production.up.railway.app/memory",
                 {
                     method: "POST",
                     headers: {
@@ -120,7 +120,7 @@ const Test = (props) => {
 
         try {
             const response = await fetch(
-                "http://localhost:8000/search",
+                "hhttps://echograph-backend-production.up.railway.app/search",
                 {
                     method: "POST",
                     headers: {
