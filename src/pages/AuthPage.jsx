@@ -51,7 +51,7 @@ export default function AuthPage(props) {
   // BACKEND URL
   // ========================================================
 
-  const API_URL = "http://localhost:8000";
+  const API_URL = "https://echograph-backend-production.up.railway.app/";
 
   // ========================================================
   // NORMAL AUTH
