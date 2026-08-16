@@ -222,9 +222,6 @@ const Test = (props) => {
                     } ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                         
                         <div className="flex items-center space-x-3 mb-6">
-                            <div className={`w-10 h-10 rounded-xl border flex items-center justify-center font-bold text-lg ${isDark ? 'bg-slate-800 border-slate-700 text-blue-400' : 'bg-slate-100 border-slate-200 text-blue-600'}`}>
-                                
-                            </div>
                             <div>
                                 <h2 className="text-xl font-bold">Ingest Knowledge Node</h2>
                                 <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Save structured facts or preferences to vector store</p>
@@ -300,8 +297,6 @@ const Test = (props) => {
                     } ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                         
                         <div className="flex items-center space-x-3 mb-6">
-                            <div className={`w-10 h-10 rounded-xl border flex items-center justify-center font-bold text-lg ${isDark ? 'bg-slate-800 border-slate-700 text-blue-400' : 'bg-slate-100 border-slate-200 text-blue-600'}`}>
-                            </div>
                             <div>
                                 <h2 className="text-xl font-bold">Semantic Vector Search</h2>
                                 <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Retrieve memories using cosine distance and adaptive decay ranking</p>

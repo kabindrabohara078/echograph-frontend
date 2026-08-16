@@ -11,7 +11,7 @@ const Hero = (props) => {
                 <p className={`text-lg max-w-xl ${props.dark ? 'text-slate-400' : 'text-slate-600'}`}>
                     EchoGraph persists, reorganizes, and natively surfaces user knowledge using vector embeddings and adaptive ranking. Stop letting your LLMs forget what matters.
                 </p>
-                <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                {/* <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                     <input
                         type="email"
                         placeholder="Enter your email to get API access"
@@ -20,7 +20,7 @@ const Hero = (props) => {
                     <button className={`${props.dark ? 'bg-gray-800 text-black' : 'bg-gray-800 text-white'} px-6 py-3 rounded-xl font-bold transition-colors whitespace-nowrap border border-transparent`}>
                         Get API
                     </button>
-                </div>
+                </div> */}
             </div>
 
             <div className="relative flex items-center justify-center lg:justify-end">

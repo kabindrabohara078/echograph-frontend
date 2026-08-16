@@ -91,9 +91,9 @@ export default function About(props) {
 
                 {/* VISION STATEMENT */}
                 <div className={`rounded-3xl p-8 sm:p-12 border text-center space-y-6 max-w-4xl mx-auto ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-slate-50 border-slate-200 shadow-sm'}`}>
-                    <div className={`inline-flex items-center space-x-2 border rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-wider ${isDark ? 'border-blue-500 text-blue-400 bg-slate-800' : 'border-blue-600 text-blue-600 bg-white'}`}>
+                    {/* <div className={`inline-flex items-center space-x-2 border rounded-full px-4 py-1 text-xs font-semibold uppercase tracking-wider ${isDark ? 'border-blue-500 text-blue-400 bg-slate-800' : 'border-blue-600 text-blue-600 bg-white'}`}>
                         Looking Ahead
-                    </div>
+                    </div> */}
                     <h2 className="text-3xl sm:text-4xl font-extrabold">Stateful AI is Purposeful AI</h2>
                     <p className={`text-sm sm:text-base max-w-2xl mx-auto leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                         We envision a world where AI assistants learn and adapt alongside humans over years, building continuous context graphs without sacrificing privacy or performance.
