@@ -455,7 +455,7 @@ export default function AuthPage(props) {
         {/* ================================================= */}
         {/* GOOGLE AUTH */}
         {/* ================================================= */}
-
+{/*         
         <div
           style={{
             display: "flex",
@@ -468,7 +468,7 @@ export default function AuthPage(props) {
             onError={handleGoogleError}
           />
 
-        </div>
+        </div> */}
 
         {/* ================================================= */}
         {/* SWITCH */}
