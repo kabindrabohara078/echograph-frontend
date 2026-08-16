@@ -17,7 +17,7 @@ const Hero = (props) => {
                         placeholder="Enter your email to get API access"
                         className={`${props.dark ? "bg-slate-900 text-white border-slate-700" : "bg-white text-slate-900 border-slate-300"} border px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow`}
                     />
-                    <button className={`${props.dark ? 'bg-white text-black hover:bg-slate-200' : 'bg-slate-900 text-white hover:bg-slate-800'} px-6 py-3 rounded-xl font-bold transition-colors whitespace-nowrap border border-transparent`}>
+                    <button className={`${props.dark ? 'bg-gray text-black' : 'bg-gray text-white'} px-6 py-3 rounded-xl font-bold transition-colors whitespace-nowrap border border-transparent`}>
                         Get API
                     </button>
                 </div>
@@ -97,7 +97,7 @@ const Features = (props) => {
 const Stats = (props) => {
     const metrics = [
         { value: "40%", label: "Token Reductions via Precision Retrieval" },
-        { value: "1.2B+", label: "Memories Vectorized" },
+        { value: "10+", label: "Memories Vectorized" },
         { value: "< 12ms", label: "Average Query Latency" },
         { value: "99.99%", label: "Uptime on FastAPI/Postgres Stack" },
     ];
