@@ -5,9 +5,6 @@ const Hero = (props) => {
     return (
         <section className="pt-25 pb-20 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[85vh]">
             <div className="space-y-6">
-                <div className={`inline-flex items-center space-x-2 border rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${props.dark ? 'border-blue-500 text-blue-400 bg-blue-500/10' : 'border-blue-600 text-blue-600 bg-blue-50'}`}>
-                    Now in MVP v1.0
-                </div>
                 <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-extrabold ${props.dark ? 'text-slate-100' : 'text-slate-900'} leading-tight`}>
                     The Long-Term Memory Layer For <span className={`${props.dark ? 'text-blue-400' : 'text-blue-600'}`}>AI Agents</span>
                 </h1>
@@ -21,7 +18,7 @@ const Hero = (props) => {
                         className={`${props.dark ? "bg-slate-900 text-white border-slate-700" : "bg-white text-slate-900 border-slate-300"} border px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 flex-grow`}
                     />
                     <button className={`${props.dark ? 'bg-white text-black hover:bg-slate-200' : 'bg-slate-900 text-white hover:bg-slate-800'} px-6 py-3 rounded-xl font-bold transition-colors whitespace-nowrap border border-transparent`}>
-                        Initialize Cluster
+                        Get API
                     </button>
                 </div>
             </div>
@@ -55,10 +52,10 @@ const Hero = (props) => {
 };
 
 const LogoTicker = (props) => {
-    const dummyCompanies = ["OmniAI", "VertexLabs", "Synapse", "QuantumSoft", "NeuralFlow", "DataArc"];
+    // const dummyCompanies = ["OmniAI", "VertexLabs", "Synapse", "QuantumSoft", "NeuralFlow", "DataArc"];
     return (
         <section className={`border-y ${props.dark ? "border-slate-800 bg-slate-900/50" : "border-slate-200 bg-slate-50"} py-10 overflow-hidden relative`}>
-            <div className="flex whitespace-nowrap animate-marquee">
+            {/* <div className="flex whitespace-nowrap animate-marquee">
                 <div className="flex space-x-16 font-bold tracking-wider text-xl uppercase">
                     {dummyCompanies.concat(dummyCompanies).map((company, index) => (
                         <span key={index} className={`${props.dark ? "text-slate-500" : "text-slate-400"} mx-4 transition-colors`}>
@@ -66,7 +63,7 @@ const LogoTicker = (props) => {
                         </span>
                     ))}
                 </div>
-            </div>
+            </div> */}
         </section>
     );
 };

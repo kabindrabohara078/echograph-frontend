@@ -171,34 +171,34 @@ const Test = (props) => {
     const isDark = props.dark;
 
     return (
-        <div className={`min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8 transition-colors duration-200 ${isDark ? 'bg-[#18181c] text-white' : 'bg-gray-50 text-gray-900'}`}>
+        <div className={`min-h-screen pt-24 pb-16 px-4 sm:px-6 lg:px-8 transition-colors duration-200 ${isDark ? 'bg-[#111111] text-slate-100' : 'bg-[#FAFAFA] text-slate-900'}`}>
             <Popup text={props.popupText} clearPop={props.clearPop} />
             
             <div className="max-w-7xl mx-auto space-y-8">
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <div className="inline-flex items-center space-x-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full px-3 py-1 text-xs font-semibold text-cyan-400 uppercase tracking-wider">
+                    <div className={`inline-flex items-center space-x-2 border rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${isDark ? 'border-blue-500 text-blue-400 bg-blue-500/10' : 'border-blue-600 text-blue-600 bg-blue-50'}`}>
                         Interactive RAG Sandbox & Live Demo
                     </div>
                     
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-                        Memory Engine <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-teal-400 to-blue-500">Playground & Demo</span>
+                        Memory Engine <span className={isDark ? 'text-blue-400' : 'text-blue-600'}>Playground & Demo</span>
                     </h1>
                     
-                    <p className={`text-base sm:text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <p className={`text-base sm:text-lg ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                         Ingest user knowledge, inspect adaptive pgvector rankings, and test real-time semantic retrieval.
                     </p>
                 </div>
 
                 {/* Navigation Tabs for Mobile / Desktop */}
                 <div className="flex justify-center">
-                    <div className={`inline-flex p-1.5 rounded-xl border ${isDark ? 'bg-gray-900/80 border-gray-800' : 'bg-white border-gray-200 shadow-sm'}`}>
+                    <div className={`inline-flex p-1.5 rounded-xl border ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                         <button
                             onClick={() => setActiveTab('ingest')}
                             className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
                                 activeTab === 'ingest'
-                                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
-                                    : isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                                    ? 'bg-blue-600 text-white'
+                                    : isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
                             }`}
                         >
                             <span>🧠</span> Memory Ingestion
@@ -208,8 +208,8 @@ const Test = (props) => {
                             onClick={() => setActiveTab('search')}
                             className={`px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
                                 activeTab === 'search'
-                                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/20'
-                                    : isDark ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'
+                                    ? 'bg-blue-600 text-white'
+                                    : isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
                             }`}
                         >
                             <span>🔍</span> RAG Semantic Search
@@ -222,23 +222,23 @@ const Test = (props) => {
                     
                     {/* INGESTION PANEL */}
                     <div className={`rounded-2xl p-6 sm:p-8 border transition-all ${
-                        activeTab === 'ingest' ? 'ring-2 ring-cyan-500/50' : 'opacity-90'
-                    } ${isDark ? 'bg-gray-900/60 border-gray-800 shadow-xl' : 'bg-white border-gray-200 shadow-md'}`}>
+                        activeTab === 'ingest' ? (isDark ? 'border-blue-500' : 'border-blue-600') : 'opacity-90'
+                    } ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                         
                         <div className="flex items-center space-x-3 mb-6">
-                            <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center font-bold text-lg">
+                            <div className={`w-10 h-10 rounded-xl border flex items-center justify-center font-bold text-lg ${isDark ? 'bg-slate-800 border-slate-700 text-blue-400' : 'bg-slate-100 border-slate-200 text-blue-600'}`}>
                                 📥
                             </div>
                             <div>
                                 <h2 className="text-xl font-bold">1. Ingest Knowledge Node</h2>
-                                <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Save structured facts or preferences to vector store</p>
+                                <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Save structured facts or preferences to vector store</p>
                             </div>
                         </div>
 
                         {/* Input Area */}
                         <div className="space-y-4">
                             <div>
-                                <label className={`block text-xs font-semibold uppercase tracking-wider mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <label className={`block text-xs font-semibold uppercase tracking-wider mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                                     Memory Context Text
                                 </label>
                                 <textarea
@@ -246,17 +246,17 @@ const Test = (props) => {
                                     value={textInputSend}
                                     onChange={(e) => setTextInputSend(e.target.value)}
                                     placeholder="e.g. User prefers Python over Node.js and uses dark mode theme for developer UI."
-                                    className={`w-full p-4 rounded-xl text-sm border focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all ${
+                                    className={`w-full p-4 rounded-xl text-sm border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
                                         isDark 
-                                            ? 'bg-gray-950 border-gray-800 text-white placeholder-gray-600' 
-                                            : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400'
+                                            ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' 
+                                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400'
                                     }`}
                                 />
                             </div>
 
                             {/* Category selector */}
                             <div>
-                                <label className={`block text-xs font-semibold uppercase tracking-wider mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <label className={`block text-xs font-semibold uppercase tracking-wider mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                                     Category Type ({contextTypeSend})
                                 </label>
                                 <div className="flex flex-wrap gap-2 max-h-36 overflow-y-auto pr-1">
@@ -265,12 +265,12 @@ const Test = (props) => {
                                             key={item}
                                             type="button"
                                             onClick={() => setContextTypeSend(item)}
-                                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
                                                 contextTypeSend === item
-                                                    ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/20 scale-105'
+                                                    ? 'bg-blue-600 text-white border-blue-600 scale-105'
                                                     : isDark 
-                                                        ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' 
-                                                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                                        ? 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700' 
+                                                        : 'bg-slate-200 text-slate-700 border-slate-200 hover:bg-slate-300'
                                             }`}
                                         >
                                             {item}
@@ -282,11 +282,11 @@ const Test = (props) => {
                             <button
                                 onClick={sendData}
                                 disabled={storing}
-                                className="w-full mt-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:opacity-95 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                                className={`w-full mt-4 font-bold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 ${isDark ? 'bg-slate-100 text-slate-900 hover:bg-white' : 'bg-slate-900 text-white hover:bg-black'}`}
                             >
                                 {storing ? (
                                     <>
-                                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                        <span className={`w-4 h-4 border-2 border-t-transparent rounded-full animate-spin ${isDark ? 'border-slate-900' : 'border-white'}`}></span>
                                         Generating Vector Embedding...
                                     </>
                                 ) : (
@@ -300,23 +300,23 @@ const Test = (props) => {
 
                     {/* SEARCH PANEL */}
                     <div className={`rounded-2xl p-6 sm:p-8 border transition-all ${
-                        activeTab === 'search' ? 'ring-2 ring-cyan-500/50' : 'opacity-90'
-                    } ${isDark ? 'bg-gray-900/60 border-gray-800 shadow-xl' : 'bg-white border-gray-200 shadow-md'}`}>
+                        activeTab === 'search' ? (isDark ? 'border-blue-500' : 'border-blue-600') : 'opacity-90'
+                    } ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
                         
                         <div className="flex items-center space-x-3 mb-6">
-                            <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 flex items-center justify-center font-bold text-lg">
+                            <div className={`w-10 h-10 rounded-xl border flex items-center justify-center font-bold text-lg ${isDark ? 'bg-slate-800 border-slate-700 text-blue-400' : 'bg-slate-100 border-slate-200 text-blue-600'}`}>
                                 🔎
                             </div>
                             <div>
                                 <h2 className="text-xl font-bold">2. Semantic Vector Search</h2>
-                                <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>Retrieve memories using cosine distance and adaptive decay ranking</p>
+                                <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Retrieve memories using cosine distance and adaptive decay ranking</p>
                             </div>
                         </div>
 
                         {/* Search Query Area */}
                         <div className="space-y-4">
                             <div>
-                                <label className={`block text-xs font-semibold uppercase tracking-wider mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <label className={`block text-xs font-semibold uppercase tracking-wider mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                                     Search Query String
                                 </label>
                                 <textarea
@@ -324,27 +324,27 @@ const Test = (props) => {
                                     value={textInputGet}
                                     onChange={(e) => setTextInputGet(e.target.value)}
                                     placeholder="e.g. What programming language or UI tools does the user prefer?"
-                                    className={`w-full p-4 rounded-xl text-sm border focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all ${
+                                    className={`w-full p-4 rounded-xl text-sm border focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all ${
                                         isDark 
-                                            ? 'bg-gray-950 border-gray-800 text-white placeholder-gray-600' 
-                                            : 'bg-gray-50 border-gray-300 text-gray-900 placeholder-gray-400'
+                                            ? 'bg-slate-950 border-slate-800 text-white placeholder-slate-600' 
+                                            : 'bg-slate-50 border-slate-300 text-slate-900 placeholder-slate-400'
                                     }`}
                                 />
                             </div>
 
                             {/* Category filter */}
                             <div>
-                                <label className={`block text-xs font-semibold uppercase tracking-wider mb-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                                <label className={`block text-xs font-semibold uppercase tracking-wider mb-2 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
                                     Filter Category ({contextTypeGet || 'All Categories'})
                                 </label>
                                 <div className="flex flex-wrap gap-2 max-h-36 overflow-y-auto pr-1">
                                     <button
                                         type="button"
                                         onClick={() => setContextTypeGet('')}
-                                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                                        className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
                                             contextTypeGet === ''
-                                                ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/20'
-                                                : isDark ? 'bg-gray-800 text-gray-300' : 'bg-gray-200 text-gray-700'
+                                                ? 'bg-blue-600 text-white border-blue-600 scale-105'
+                                                : isDark ? 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700' : 'bg-slate-200 text-slate-700 border-slate-200 hover:bg-slate-300'
                                         }`}
                                     >
                                         All
@@ -354,12 +354,12 @@ const Test = (props) => {
                                             key={item}
                                             type="button"
                                             onClick={() => setContextTypeGet(item)}
-                                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                                            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
                                                 contextTypeGet === item
-                                                    ? 'bg-cyan-500 text-white shadow-md shadow-cyan-500/20 scale-105'
+                                                    ? 'bg-blue-600 text-white border-blue-600 scale-105'
                                                     : isDark 
-                                                        ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' 
-                                                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                                                        ? 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700' 
+                                                        : 'bg-slate-200 text-slate-700 border-slate-200 hover:bg-slate-300'
                                             }`}
                                         >
                                             {item}
@@ -371,11 +371,11 @@ const Test = (props) => {
                             <button
                                 onClick={getData}
                                 disabled={searching}
-                                className="w-full mt-4 bg-gradient-to-r from-blue-600 to-cyan-500 hover:opacity-95 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-blue-500/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                                className={`w-full mt-4 font-bold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 ${isDark ? 'bg-slate-100 text-slate-900 hover:bg-white' : 'bg-slate-900 text-white hover:bg-black'}`}
                             >
                                 {searching ? (
                                     <>
-                                        <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                                        <span className={`w-4 h-4 border-2 border-t-transparent rounded-full animate-spin ${isDark ? 'border-slate-900' : 'border-white'}`}></span>
                                         Searching Vector Space...
                                     </>
                                 ) : (
@@ -391,16 +391,16 @@ const Test = (props) => {
                 {/* RESULTS SECTION */}
                 {searchResults && searchResults.length > 0 && (
                     <div className={`rounded-2xl p-6 sm:p-8 border mt-8 ${
-                        isDark ? 'bg-gray-900/90 border-gray-800' : 'bg-white border-gray-200 shadow-xl'
+                        isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-sm'
                     }`}>
-                        <div className="flex items-center justify-between border-b border-gray-800/50 pb-4 mb-6">
+                        <div className={`flex items-center justify-between border-b pb-4 mb-6 ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
                             <div className="flex items-center gap-3">
-                                <span className="w-3 h-3 rounded-full bg-cyan-400 animate-ping"></span>
+                                <span className="w-3 h-3 rounded-full bg-blue-500 animate-ping"></span>
                                 <h3 className="text-xl font-bold">
                                     {isDemoData ? "Interactive Demo Output" : "Retrieved Context Memories"}
                                 </h3>
                             </div>
-                            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
+                            <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${isDark ? 'bg-slate-800 text-blue-400 border-slate-700' : 'bg-slate-100 text-blue-600 border-slate-200'}`}>
                                 {isDemoData ? "Sample Demo Vectors" : `${searchResults.length} Matches Found`}
                             </span>
                         </div>
@@ -409,25 +409,25 @@ const Test = (props) => {
                             {searchResults.map((item, index) => (
                                 <div 
                                     key={index}
-                                    className={`p-5 rounded-xl border transition-all hover:border-cyan-500/50 ${
+                                    className={`p-5 rounded-xl border transition-all ${
                                         isDark 
-                                            ? 'bg-gray-950/80 border-gray-800 hover:bg-gray-950' 
-                                            : 'bg-gray-50 border-gray-200 hover:bg-white shadow-sm'
+                                            ? 'bg-slate-950 border-slate-800 hover:border-blue-500' 
+                                            : 'bg-slate-50 border-slate-200 hover:border-blue-500 shadow-sm'
                                     }`}
                                 >
                                     <div className="flex items-center justify-between mb-3">
-                                        <span className="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                        <span className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider border ${isDark ? 'bg-slate-800 text-blue-400 border-slate-700' : 'bg-slate-100 text-blue-600 border-slate-200'}`}>
                                             {item.type}
                                         </span>
-                                        <div className="text-[11px] font-mono text-gray-500 flex items-center gap-3">
-                                            <span>Rank: <strong className="text-cyan-400">{(item.final_rank || 0).toFixed(3)}</strong></span>
+                                        <div className={`text-[11px] font-mono flex items-center gap-3 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
+                                            <span>Rank: <strong className={isDark ? 'text-blue-400' : 'text-blue-600'}>{(item.final_rank || 0).toFixed(3)}</strong></span>
                                             <span>Distance: <strong>{(item.distance || 0).toFixed(3)}</strong></span>
                                         </div>
                                     </div>
-                                    <p className={`text-sm leading-relaxed font-sans ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
+                                    <p className={`text-sm leading-relaxed font-sans ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
                                         "{item.content}"
                                     </p>
-                                    <div className="mt-3 pt-3 border-t border-gray-800/40 flex justify-between items-center text-[10px] text-gray-500">
+                                    <div className={`mt-3 pt-3 border-t flex justify-between items-center text-[10px] ${isDark ? 'border-slate-800 text-slate-500' : 'border-slate-200 text-slate-500'}`}>
                                         <span>Node ID: #{item.id}</span>
                                         <span>Stored: {new Date(item.created_at).toLocaleDateString()}</span>
                                     </div>
