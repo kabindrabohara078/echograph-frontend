@@ -18,9 +18,6 @@ export default function Docs(props) {
 
                 {/* HERO HEADER */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto pt-4">
-                    <div className={`inline-flex items-center space-x-2 border rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider ${isDark ? 'border-blue-500 text-blue-400 bg-blue-500/10' : 'border-blue-600 text-blue-600 bg-blue-50'}`}>
-                        API Reference v1.0
-                    </div>
                     <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
                         Developer <span className={isDark ? 'text-blue-400' : 'text-blue-600'}>Documentation</span>
                     </h1>

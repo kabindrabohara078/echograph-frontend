@@ -51,23 +51,6 @@ const Hero = (props) => {
     );
 };
 
-const LogoTicker = (props) => {
-    // const dummyCompanies = ["OmniAI", "VertexLabs", "Synapse", "QuantumSoft", "NeuralFlow", "DataArc"];
-    return (
-        // <section className={`border-y ${props.dark ? "border-slate-800 bg-slate-900/50" : "border-slate-200 bg-slate-50"} py-10 overflow-hidden relative`}>
-        //     <div className="flex whitespace-nowrap animate-marquee">
-        //         <div className="flex space-x-16 font-bold tracking-wider text-xl uppercase">
-        //             {dummyCompanies.concat(dummyCompanies).map((company, index) => (
-        //                 <span key={index} className={`${props.dark ? "text-slate-500" : "text-slate-400"} mx-4 transition-colors`}>
-        //                     {company}
-        //                 </span>
-        //             ))}
-        //         </div>
-        //     </div>
-        // </section>
-    );
-};
-
 const Features = (props) => {
     const points = [
         { title: "Semantic Knowledge Storage", desc: "Maps text chunks directly to multi-dimensional vector structures using pgvector.", icon: "🧠" },
@@ -199,7 +182,6 @@ export default function LandingPage(props) {
     return (
         <div className={`${props.dark ? 'bg-[#111111] text-slate-100' : 'bg-[#FAFAFA] text-slate-900'} min-h-screen font-sans`}>
             <Hero dark={props.dark} />
-            {/* <LogoTicker dark={props.dark} /> */}
             <Features dark={props.dark} />
             <Stats dark={props.dark} />
             <HowItWorks dark={props.dark} />

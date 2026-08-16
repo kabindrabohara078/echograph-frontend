@@ -70,9 +70,6 @@ const fetchContext = async (userToken) => {
 
                 {/* HERO HEADER */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto pt-6">
-                    <div className={`inline-flex items-center space-x-2 border rounded-full px-3.5 py-1 text-xs font-semibold uppercase tracking-wider ${isDark ? 'border-blue-500 text-blue-400 bg-blue-500/10' : 'border-blue-600 text-blue-600 bg-blue-50'}`}>
-                        EchoGraph Product Suite
-                    </div>
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
                         Cognitive Infrastructure for <span className={`${isDark ? 'text-blue-400' : 'text-blue-600'}`}>Autonomous AI</span>
                     </h1>

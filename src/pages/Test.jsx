@@ -177,10 +177,6 @@ const Test = (props) => {
             <div className="max-w-7xl mx-auto space-y-8">
                 {/* Header Section */}
                 <div className="text-center space-y-4 max-w-3xl mx-auto">
-                    <div className={`inline-flex items-center space-x-2 border rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${isDark ? 'border-blue-500 text-blue-400 bg-blue-500/10' : 'border-blue-600 text-blue-600 bg-blue-50'}`}>
-                        Interactive RAG Sandbox & Live Demo
-                    </div>
-                    
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
                         Memory Engine <span className={isDark ? 'text-blue-400' : 'text-blue-600'}>Playground & Demo</span>
                     </h1>
@@ -201,7 +197,7 @@ const Test = (props) => {
                                     : isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
                             }`}
                         >
-                            <span>🧠</span> Memory Ingestion
+                            Memory Ingestion
                         </button>
 
                         <button
@@ -212,7 +208,7 @@ const Test = (props) => {
                                     : isDark ? 'text-slate-400 hover:text-white' : 'text-slate-600 hover:text-slate-900'
                             }`}
                         >
-                            <span>🔍</span> RAG Semantic Search
+                            RAG Semantic Search
                         </button>
                     </div>
                 </div>
@@ -227,10 +223,10 @@ const Test = (props) => {
                         
                         <div className="flex items-center space-x-3 mb-6">
                             <div className={`w-10 h-10 rounded-xl border flex items-center justify-center font-bold text-lg ${isDark ? 'bg-slate-800 border-slate-700 text-blue-400' : 'bg-slate-100 border-slate-200 text-blue-600'}`}>
-                                📥
+                                
                             </div>
                             <div>
-                                <h2 className="text-xl font-bold">1. Ingest Knowledge Node</h2>
+                                <h2 className="text-xl font-bold">Ingest Knowledge Node</h2>
                                 <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Save structured facts or preferences to vector store</p>
                             </div>
                         </div>
@@ -291,7 +287,7 @@ const Test = (props) => {
                                     </>
                                 ) : (
                                     <>
-                                        <span>⚡</span> Store Context Memory
+                                        Store Context Memory
                                     </>
                                 )}
                             </button>
@@ -305,10 +301,9 @@ const Test = (props) => {
                         
                         <div className="flex items-center space-x-3 mb-6">
                             <div className={`w-10 h-10 rounded-xl border flex items-center justify-center font-bold text-lg ${isDark ? 'bg-slate-800 border-slate-700 text-blue-400' : 'bg-slate-100 border-slate-200 text-blue-600'}`}>
-                                🔎
                             </div>
                             <div>
-                                <h2 className="text-xl font-bold">2. Semantic Vector Search</h2>
+                                <h2 className="text-xl font-bold">Semantic Vector Search</h2>
                                 <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Retrieve memories using cosine distance and adaptive decay ranking</p>
                             </div>
                         </div>
@@ -380,7 +375,7 @@ const Test = (props) => {
                                     </>
                                 ) : (
                                     <>
-                                        <span>🎯</span> Execute Vector Search
+                                        Execute Vector Search
                                     </>
                                 )}
                             </button>
@@ -395,13 +390,12 @@ const Test = (props) => {
                     }`}>
                         <div className={`flex items-center justify-between border-b pb-4 mb-6 ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
                             <div className="flex items-center gap-3">
-                                <span className="w-3 h-3 rounded-full bg-blue-500 animate-ping"></span>
                                 <h3 className="text-xl font-bold">
                                     {isDemoData ? "Interactive Demo Output" : "Retrieved Context Memories"}
                                 </h3>
                             </div>
                             <span className={`text-xs font-semibold px-3 py-1 rounded-full border ${isDark ? 'bg-slate-800 text-blue-400 border-slate-700' : 'bg-slate-100 text-blue-600 border-slate-200'}`}>
-                                {isDemoData ? "Sample Demo Vectors" : `${searchResults.length} Matches Found`}
+                                {isDemoData ? "Demo Outputs" : `${searchResults.length} Matches Found`}
                             </span>
                         </div>
 
