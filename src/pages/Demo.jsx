@@ -18,12 +18,12 @@ export default function DemoPage({ dark }) {
         footerLine: "border-gray-800"
       }
     : {
-        wrapper: "bg-gray-100 text-black",
-        container: "bg-white border-gray-200 shadow-md",
+        wrapper: "bg-[var(--bg-primary)] text-[var(--text-primary)]",
+        container: "bg-[var(--bg-card)] border-[var(--border-color)] shadow-sm",
         pill: "bg-blue-100 text-blue-600 border-blue-200",
-        subtitle: "text-gray-600",
+        subtitle: "text-[var(--text-secondary)]",
         stepNum: "text-gray-300",
-        footerLine: "border-gray-200"
+        footerLine: "border-[var(--border-color)]"
       };
 
   return (

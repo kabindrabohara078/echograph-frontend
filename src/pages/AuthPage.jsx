@@ -1,87 +1,43 @@
-
-import {
-  GoogleLogin
-} from "@react-oauth/google";
-
+import { GoogleLogin } from "@react-oauth/google";
 import { useState } from "react";
-
 import { motion } from "motion/react";
-
 import { useNavigate } from "react-router-dom";
-
-
+import { Mail, Lock, User, Sparkles, AlertCircle, CheckCircle2, Loader2, ArrowRight } from "lucide-react";
 import "./Auth.css";
-
-import {
-  Mail,
-  Lock,
-  User
-} from "lucide-react";
-
-import Typewriter from "../assets/elements/Typewriter";
+import { API_URL } from "../config/api";
 
 export default function AuthPage(props) {
-
   const navigate = useNavigate();
 
-
-  // ========================================================
-  // STATE
-  // ========================================================
-
-  const display_text = "EchoGraph";
-
-  // const [props.method, setprops.method] = useState("login");
-
   const [fname, setFname] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [confPassword, setConfPassword] = useState("");
-
   const [email, setEmail] = useState("");
-
   const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
-
   const [success, setSuccess] = useState("");
 
-  // ========================================================
-  // BACKEND URL
-  // ========================================================
-
-  const API_URL = (import.meta.env.VITE_API_URL || "https://echograph-backend-production.up.railway.app").replace(/\/+$/, "");
-
-  // ========================================================
-  // NORMAL AUTH
-  // ========================================================
-
-  const handleAuth = async () => {
-
+  const handleAuth = async (e) => {
+    if (e) e.preventDefault();
     setError("");
     setSuccess("");
 
-    // ========================================================
-    // VALIDATIONS
-    // ========================================================
-
     if (!email || !password) {
-      setError("Please fill all fields");
+      setError("Please fill in all required fields.");
       return;
     }
 
     if (props.method === "register") {
       if (!fname) {
-        setError("Full name required");
+        setError("Full name is required.");
         return;
       }
       if (password !== confPassword) {
-        setError("Passwords do not match");
+        setError("Passwords do not match.");
         return;
       }
       if (password.length < 6) {
-        setError("Password must be at least 6 characters");
+        setError("Password must be at least 6 characters.");
         return;
       }
     }
@@ -101,26 +57,21 @@ export default function AuthPage(props) {
         payload = { firstname, lastname, email, password };
       }
 
-      const response = await fetch(
-        `${API_URL}/${endpoint}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        }
-      );
+      const response = await fetch(`${API_URL}/${endpoint}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.detail || "Authentication failed");
+        setError(data.detail || "Authentication failed. Please verify credentials.");
         return;
       }
 
       if (props.method === "register") {
-        setSuccess("Account created successfully! Logging in...");
+        setSuccess("Account registered! Signing you in...");
         const loginRes = await fetch(`${API_URL}/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -129,63 +80,36 @@ export default function AuthPage(props) {
         const loginData = await loginRes.json();
         if (loginRes.ok && loginData.access_token) {
           if (props.updateAuth) props.updateAuth(loginData.access_token, email, loginData.name || fname);
-          setTimeout(() => navigate("/test"), 1000);
+          setTimeout(() => navigate("/test"), 800);
         } else {
           props.setMethod("login");
         }
       } else if (data.access_token) {
         if (props.updateAuth) props.updateAuth(data.access_token, email, data.name || email.split("@")[0]);
-        setSuccess("Login successful!");
-        setTimeout(() => navigate("/test"), 1000);
+        setTimeout(() => navigate("/test"), 800);
       }
     } catch (err) {
-      console.log(err);
-      setError("Server connection failed");
+      console.error(err);
+      setError("Internal server Error");
     } finally {
       setLoading(false);
     }
   };
 
-  // ========================================================
-  // GOOGLE AUTH
-  // ========================================================
-
-  const handleGoogleSuccess = async (
-    credentialResponse
-  ) => {
-
+  const handleGoogleSuccess = async (credentialResponse) => {
     try {
-
-      const response = await fetch(
-        `${API_URL}/google-auth`,
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type": "application/json"
-          },
-
-          body: JSON.stringify({
-            credential:
-              credentialResponse.credential
-          })
-        }
-      );
+      const response = await fetch(`${API_URL}/google-auth`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ credential: credentialResponse.credential })
+      });
 
       const data = await response.json();
 
       if (!response.ok) {
-
-        setError(
-          data.detail || "Google auth failed"
-        );
-
+        setError(data.detail || "Google authentication failed.");
         return;
       }
-
-      // ========================================================
-      // SAVE JWT & UPDATE AUTH STATE
-      // ========================================================
 
       if (props.updateAuth) {
         props.updateAuth(data.access_token, data.email, data.name);
@@ -195,315 +119,154 @@ export default function AuthPage(props) {
         localStorage.setItem("user_name", data.name || "");
       }
 
-      setSuccess(
-        "Google authentication successful"
-      );
-
-      console.log(data);
-
-      navigate("/test");
-    }
-
-    catch (err) {
-
-      console.log(err);
-
-      setError(
-        "Google authentication failed"
-      );
+      setSuccess("Google login successful!");
+      setTimeout(() => navigate("/test"), 800);
+    } catch (err) {
+      console.error(err);
+      setError("Google authentication failed.");
     }
   };
 
-  // ========================================================
-  // GOOGLE ERROR
-  // ========================================================
-
-  const handleGoogleError = () => {
-
-    setError(
-      "Google Sign In Failed"
-    );
-  };
-
-  // ========================================================
-  // UI
-  // ========================================================
+  const isLogin = props.method === "login";
 
   return (
-
     <div className="auth-wrapper">
-
-
+      <br /><br /><br /><br /><br />
       <motion.div
         key={props.method}
-        initial={{
-          opacity: 0,
-          y: 20
-        }}
-        animate={{
-          opacity: 1,
-          y: 0
-        }}
-        transition={{
-          duration: 0.4
-        }}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25 }}
         className="auth-card"
       >
-       <br /><br /><br />
-       <br />
-
-
-       
-
-        {/* ================================================= */}
-        {/* LOGO */}
-        {/* ================================================= */}
-
-       
-
-      
-        <div className="hero-auth">
-
-          <Typewriter
-            show_text={display_text}
-          />
-
+        {/* Brand header */}
+        <div className="flex items-center justify-between mb-6 pb-4 border-b border-[var(--border-color)]">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-mono font-bold tracking-wider text-blue-400">
+              ECHOGRAPH
+            </span>
+          </div>
         </div>
 
-        {/* ================================================= */}
-        {/* TITLE */}
-        {/* ================================================= */}
-        
-        <h2
-          className="auth-title"
-          style={{
-            color: "#095285"
-          }}
-        >
+        <h2 className="auth-title">
+          {isLogin ? "Welcome Back" : "Create Account"}
+        </h2> <br />
+  
 
-          {
-            props.method === "login"
-              ? "Welcome Back"
-              : "Create Account"
-          }
+        {/* Error Alert */}
+        {error && (
+          <div className="mb-4 p-3 rounded-xl border border-red-500/30 bg-red-500/10 text-red-400 text-xs flex items-center gap-2 font-medium">
+            <AlertCircle className="w-4 h-4 shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
 
-        </h2>
+        {/* Success Alert */}
+        {success && (
+          <div className="mb-4 p-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs flex items-center gap-2 font-medium">
+            <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <span>{success}</span>
+          </div>
+        )}
 
-        <p className="auth-subtitle">
-
-          {
-            props.method === "login"
-              ? "Login to Get Started"
-              : "Sign up to start using EchoGraph"
-          }
-
-        </p>
-
-        {/* ================================================= */}
-        {/* ERROR */}
-        {/* ================================================= */}
-
-        {
-          error && (
-
-            <div
-              style={{
-                color: "red",
-                marginBottom: "10px",
-                fontSize: "14px"
-              }}
-            >
-              {error}
-            </div>
-          )
-        }
-
-        {/* ================================================= */}
-        {/* SUCCESS */}
-        {/* ================================================= */}
-
-        {
-          success && (
-
-            <div
-              style={{
-                color: "green",
-                marginBottom: "10px",
-                fontSize: "14px"
-              }}
-            >
-              {success}
-            </div>
-          )
-        }
-
-        {/* ================================================= */}
-        {/* REGISTER NAME */}
-        {/* ================================================= */}
-
-        {
-          props.method === "register" && (
-
-            <div className="input-box">
-
-              <User size={18} />
-
+        <form onSubmit={handleAuth} className="space-y-3">
+          {/* Name (Register Only) */}
+          {!isLogin && (
+            <div className="auth-input-group">
+              <User size={16} />
               <input
                 type="text"
                 placeholder="Full Name"
                 value={fname}
-                onChange={(e) =>
-                  setFname(e.target.value)
-                }
+                onChange={(e) => setFname(e.target.value)}
+                autoComplete="name"
               />
-
             </div>
-          )
-        }
+          )}
 
-        {/* ================================================= */}
-        {/* EMAIL */}
-        {/* ================================================= */}
+          {/* Email */}
+          <div className="auth-input-group">
+            <Mail size={16} />
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+            />
+          </div>
 
-        <div className="input-box">
+          {/* Password */}
+          <div className="auth-input-group">
+            <Lock size={16} />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete={isLogin ? "current-password" : "new-password"}
+            />
+          </div>
 
-          <Mail size={18} />
-
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) =>
-              setEmail(e.target.value)
-            }
-          />
-
-        </div>
-
-        {/* ================================================= */}
-        {/* PASSWORD */}
-        {/* ================================================= */}
-
-        <div className="input-box">
-
-          <Lock size={18} />
-
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) =>
-              setPassword(e.target.value)
-            }
-          />
-
-        </div>
-
-        {/* ================================================= */}
-        {/* CONFIRM PASSWORD */}
-        {/* ================================================= */}
-
-        {
-          props.method === "register" && (
-
-            <div className="input-box">
-
-              <Lock size={18} />
-
+          {/* Confirm Password (Register Only) */}
+          {!isLogin && (
+            <div className="auth-input-group">
+              <Lock size={16} />
               <input
                 type="password"
                 placeholder="Confirm Password"
                 value={confPassword}
-                onChange={(e) =>
-                  setConfPassword(e.target.value)
-                }
+                onChange={(e) => setConfPassword(e.target.value)}
+                autoComplete="new-password"
               />
-
             </div>
-          )
-        }
+          )}
 
-        {/* ================================================= */}
-        {/* MAIN BUTTON */}
-        {/* ================================================= */}
-
-        <button
-          className="primary-btn"
-          onClick={handleAuth}
-          disabled={loading}
-        >
-
-          {
-            loading
-              ? "Please wait..."
-              : (
-                props.method === "login"
-                  ? "Login"
-                  : "Create Account"
-              )
-          }
-        </button>
-
-        {/* ================================================= */}
-        {/* DIVIDER */}
-        {/* ================================================= */}
-
-        <div className="divider">
-          OR
-        </div>
-
-        {/* ================================================= */}
-        {/* GOOGLE AUTH */}
-        {/* ================================================= */}
-{/*         
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center"
-          }}
-        >
-
-          <GoogleLogin
-            onSuccess={handleGoogleSuccess}
-            onError={handleGoogleError}
-          />
-
-        </div> */}
-
-        {/* ================================================= */}
-        {/* SWITCH */}
-        {/* ================================================= */}
-
-        <p className="switch-text">
-
-          {
-            props.method === props.method
-              ? "Don’t have an account?"
-              : "Already have an account?"
-          }
-
-          <span
-            onClick={() =>
-              props.setMethod(
-                props.method === "login"
-                  ? "register"
-                  : "login"
-              )
-            }
+          {/* Submit Button */}
+          <br />
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn btn-primary auth-submit-btn cursor-pointer"
           >
+            {loading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                <span>Processing...</span>
+              </>
+            ) : (
+              <>
+                <span>{isLogin ? "Sign In" : "Create Account"}</span>
+              </>
+            )}
+          </button>
+        </form>
 
-            {
-              props.method === "login"
-                ? " Register"
-                : " Login"
-            }
-
-          </span>
-
-        </p>
-
+        {/* Switch Login / Register */}
+        <div className="auth-switch">
+          {isLogin ? (
+            <span>
+              Don't have an account?
+              <button 
+                type="button" 
+                onClick={() => { setError(""); setSuccess(""); props.setMethod("register"); }}
+              >
+                Register
+              </button>
+            </span>
+          ) : (
+            <span>
+              Already have an account?
+              <button 
+                type="button" 
+                onClick={() => { setError(""); setSuccess(""); props.setMethod("login"); }}
+              >
+                Sign In
+              </button>
+            </span>
+          )}
+        </div>
       </motion.div>
-
     </div>
   );
 }

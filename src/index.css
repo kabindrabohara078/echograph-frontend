@@ -1,1 +1,212 @@
 @import 'tailwindcss';
+
+/* =========================================================
+   EchoGraph Design System (Inspired by real-sum)
+   Monochrome Deep Palettes, Clean Typography & Human Polish
+   ========================================================= */
+
+:root {
+  /* Dark Mode Default - Pure #000, #111, #141414, #1c1c1c, #333, #444 Palette */
+  --bg-primary: #000000;
+  --bg-secondary: #111111;
+  --bg-tertiary: #1c1c1c;
+  --bg-card: #141414;
+  --bg-modal: #181818;
+  --bg-overlay: rgba(0, 0, 0, 0.85);
+
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --border-color: #27272a;
+  --border-hover: #3f3f46;
+
+  --accent-primary: #ffffff;
+  --accent-hover: #e4e4e7;
+  --btn-text: #000000;
+
+  --brand-blue: #3b82f6;
+  --brand-cyan: #06b6d4;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', Courier, monospace;
+  --transition-speed: 0.2s ease;
+
+  --container-width: 1400px;
+}
+
+/* Light Theme Variables - Soft, glare-free matte backgrounds */
+.light, html.light, body.light {
+  --bg-primary: #eaedf1;
+  --bg-secondary: #f2f4f7;
+  --bg-tertiary: #e1e5eb;
+  --bg-card: #f2f4f7;
+  --bg-modal: #f2f4f7;
+  --bg-overlay: rgba(15, 23, 42, 0.65);
+
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+
+  --border-color: #cbd5e1;
+  --border-hover: #94a3b8;
+
+  --accent-primary: #0f172a;
+  --accent-hover: #1e293b;
+  --btn-text: #ffffff;
+
+  --brand-blue: #2563eb;
+  --brand-cyan: #0891b2;
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+}
+
+/* =========================================================
+   Base Resets & Typography
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+  overflow-x: hidden;
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* =========================================================
+   Human-Crafted Component Utility Classes
+   ========================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  border: 1px solid transparent;
+  user-select: none;
+}
+
+.btn-primary {
+  background-color: var(--accent-primary);
+  color: var(--btn-text);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+.btn-secondary:hover {
+  background-color: var(--border-color);
+  border-color: var(--border-hover);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+.btn-outline:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  background-color: var(--bg-tertiary);
+}
+
+.btn-danger {
+  background-color: var(--error);
+  color: #ffffff;
+}
+.btn-danger:hover {
+  opacity: 0.92;
+}
+
+/* Surface Cards */
+.app-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+.app-card:hover {
+  border-color: var(--border-hover);
+}
+
+/* Status Badges */
+.badge-mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+/* Input Fields */
+.input-custom {
+  background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  outline: none;
+  transition: all var(--transition-speed);
+}
+.input-custom:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 1px var(--brand-blue);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

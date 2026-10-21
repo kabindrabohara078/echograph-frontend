@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LandingPage from './pages/LandingPage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AuthPage from './pages/AuthPage'
@@ -14,9 +14,25 @@ import Careers from './pages/Careers.jsx'
 
 const App = () => {
 
-  const [dark, setDark] = useState(false)
+  const [dark, setDark] = useState(() => {
+    const saved = localStorage.getItem("echograph_theme");
+    return saved ? saved === "dark" : true;
+  });
   const [authMode, setAuthMode] = useState("");
   const [open, setOpen] = useState(false)
+
+  useEffect(() => {
+    localStorage.setItem("echograph_theme", dark ? "dark" : "light");
+    if (dark) {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+      document.body.className = "dark";
+    } else {
+      document.documentElement.classList.add("light");
+      document.documentElement.classList.remove("dark");
+      document.body.className = "light";
+    }
+  }, [dark]);
 
   const [token, setToken] = useState(() => localStorage.getItem("token") || "");
   const [userEmail, setUserEmail] = useState(() => localStorage.getItem("user_email") || "");

@@ -1,207 +1,314 @@
 import React, { useState } from 'react';
-import { Shield, Cpu, Database, Code, CheckCircle, Terminal, Layers, ArrowRight, Sparkles, Zap, Lock } from 'lucide-react';
+import { 
+    Database, 
+    Cpu, 
+    Terminal, 
+    Layers, 
+    CheckCircle2, 
+    Copy, 
+    Check, 
+    ArrowRight, 
+    Sparkles, 
+    Code2, 
+    Shield, 
+    Server
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function ProductsPage(props) {
     const [activeTab, setActiveTab] = useState('python');
-    const isDark = props.dark;
+    const [copied, setCopied] = useState(false);
 
     const codeSnippets = {
         python: `import requests
 
-# Query EchoGraph Core RAG Engine
-url = "http://localhost:8000/search"
+API_URL = "http://localhost:8000"
 headers = {"Authorization": "Bearer YOUR_JWT_TOKEN"}
+
+# 1. Ingest Semantic Memory
 payload = {
-    "query": "What database configuration does the user prefer?",
+    "context": "User prefers FastAPI microservices with PostgreSQL",
+    "type": "preference",
+    "importance": 0.95
+}
+requests.post(f"{API_URL}/memory", headers=headers, json=payload)
+
+# 2. Query with Adaptive Ranking & Recency Decay
+query_payload = {
+    "query": "What backend framework does the user prefer?",
     "type": "preference"
 }
-
-response = requests.post(url, headers=headers, json=payload)
+response = requests.post(f"{API_URL}/search", headers=headers, json=query_payload)
 results = response.json().get("results", [])
 
-print(f"Surfaced {len(results)} relevant memory nodes.")`,
-        javascript: `// Retrieve Context from EchoGraph API
-const fetchContext = async (userToken) => {
-  const response = await fetch('http://localhost:8000/search', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': \`Bearer \${userToken}\`
-    },
-    body: JSON.stringify({
-      query: "What database configuration does the user prefer?",
-      type: "preference"
-    })
-  });
-  
-  const data = await response.json();
-  console.log(\`Retrieved Top \${data.results.length} memory arrays.\`);
-};`
+for item in results:
+    print(f"Match: {item['content']} (Rank Score: {item['final_rank']})")`,
+
+        javascript: `// Ingest and Retrieve Memory via EchoGraph API
+const API_URL = "http://localhost:8000";
+const token = "YOUR_JWT_TOKEN";
+
+// 1. Ingest
+await fetch(\`\${API_URL}/memory\`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': \`Bearer \${token}\`
+  },
+  body: JSON.stringify({
+    context: "User prefers FastAPI microservices with PostgreSQL",
+    type: "preference",
+    importance: 0.95
+  })
+});
+
+// 2. Query with Decay Ranking
+const res = await fetch(\`\${API_URL}/search\`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': \`Bearer \${token}\`
+  },
+  body: JSON.stringify({
+    query: "What backend framework does the user prefer?",
+    type: "preference"
+  })
+});
+
+const data = await res.json();
+console.log("Top Ranked Memories:", data.results);`,
+
+        curl: `# 1. Ingest Context
+curl -X POST http://localhost:8000/memory \\
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "context": "User prefers FastAPI microservices with PostgreSQL",
+    "type": "preference",
+    "importance": 0.95
+  }'
+
+# 2. Search Memories with Decay Ranking
+curl -X POST http://localhost:8000/search \\
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "query": "What backend framework does the user prefer?",
+    "type": "preference"
+  }'`
+    };
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(codeSnippets[activeTab]);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
     };
 
     const productsList = [
         {
             title: "EchoGraph Vector Memory Engine",
-            tag: "Core Engine v1.0",
-            icon: <Database className="w-6 h-6 text-blue-500" />,
-            desc: "FastAPI microservice integrated natively with PostgreSQL and pgvector for sub-10ms semantic similarity queries.",
-            features: ["pgvector HNSW Indexing", "Sentence-Transformer Embeddings", "Multi-Tenant Row Isolation"]
+            tag: "Core Engine v2.0",
+            icon: <Database color='#50a2ff' className="w-5 h-5 text-blue-400" />,
+            desc: "FastAPI microservice integrated natively with PostgreSQL and pgvector for sub-8ms semantic similarity queries and isolated user namespaces.",
+            features: [
+                "pgvector HNSW Indexing",
+                "Sentence-Transformers 384-d",
+                "Offline SQLite Zero-Config Mode",
+                "Multi-Tenant JWT Isolation"
+            ]
         },
         {
             title: "Adaptive Recency Ranking Middleware",
             tag: "Mathematical Decay",
-            icon: <Cpu className="w-6 h-6 text-blue-500" />,
-            desc: "Automatic temporal exponential decay scoring that dynamically weights context based on age and access ratios.",
-            features: ["Exponential Recency Curve", "Frequency Multiplier", "Automatic Node Archival"]
+            icon: <Cpu color='#50a2ff' className="w-5 h-5 text-cyan-400" />,
+            desc: "Automatic temporal exponential decay scoring that dynamically weights context based on age, user priority, and access ratios.",
+            features: [
+                "Exponential Recency Curve",
+                "Query Frequency Multiplier",
+                "Zero-Maintenance Auto Decay",
+                "Context Window Optimization"
+            ]
         },
         {
-            title: "Interactive RAG Playground & API",
+            title: "Interactive Sandbox & API Playground",
             tag: "Developer Tools",
-            icon: <Terminal className="w-6 h-6 text-blue-500" />,
-            desc: "Test context ingestion and semantic vector retrieval interactively before shipping to production AI agents.",
-            features: ["Real-time Similarity Scoring", "Category Filtering", "Interactive Debugger"]
+            icon: <Terminal color='#50a2ff' className="w-5 h-5 text-emerald-400" />,
+            desc: "Live visual testbed to ingest unstructured statements, inspect vector distances, and debug similarity scores before shipping to autonomous agents.",
+            features: [
+                "Real-Time Similarity Meters",
+                "Distance & Latency Tracker",
+                "Quick Pre-populated Prompts",
+                "Single-Click Node Deletion"
+            ]
         }
     ];
 
     return (
-        <div className={`min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8 transition-colors duration-200 ${isDark ? 'bg-[#111111] text-slate-100' : 'bg-[#FAFAFA] text-slate-900'}`}>
-            <div className="max-w-7xl mx-auto space-y-16">
+        <div className="min-h-screen pt-24 pb-20 px-4 sm:px-6 max-w-7xl mx-auto space-y-16 bg-[var(--bg-primary)] text-[var(--text-primary)]">
+            <br />
+            <br />
+            {/* HERO HEADER */}
+            <div className="text-center space-y-4 max-w-3xl mx-auto pt-4">
+                <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight">
+                    Stateful Infrastructure for{' '}
+                    <span className="text-blue-400">
+                        Autonomous Agents
+                    </span>
+                </h1>
+                <p className="text-base sm:text-lg leading-relaxed text-[var(--text-secondary)]">
+                    Eliminate context limits and memory amnesia. Outsource long-term episodic memory storage to our high-performance PostgreSQL + pgvector microservice.
+                </p>
+            </div>
 
-                {/* HERO HEADER */}
-                <div className="text-center space-y-4 max-w-3xl mx-auto pt-6">
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
-                        Cognitive Infrastructure for <span className={`${isDark ? 'text-blue-400' : 'text-blue-600'}`}>Autonomous AI</span>
-                    </h1>
-                    <p className={`text-base sm:text-lg max-w-2xl mx-auto leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                        Outsource long-term episodic memory storage to our high-performance PostgreSQL + pgvector microservice engine.
-                    </p>
-                </div>
-
-                {/* PRODUCTS CARDS GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {productsList.map((prod, idx) => (
-                        <div key={idx} className={`p-6 sm:p-8 rounded-3xl border flex flex-col justify-between transition-all hover:-translate-y-1 ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-                            <div>
-                                <div className="flex items-center justify-between mb-4">
-                                    <div className={`p-3 rounded-2xl border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-200'}`}>
-                                        {prod.icon}
-                                    </div>
-                                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase border ${isDark ? 'bg-slate-800 text-slate-300 border-slate-700' : 'bg-slate-100 text-slate-700 border-slate-200'}`}>
-                                        {prod.tag}
-                                    </span>
-                                </div>
-                                <h3 className="text-xl font-bold mb-2">{prod.title}</h3>
-                                <p className={`text-xs sm:text-sm leading-relaxed mb-6 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
-                                    {prod.desc}
-                                </p>
-                                <ul className="space-y-2 mb-6 text-xs font-semibold">
-                                    {prod.features.map((feat, fIdx) => (
-                                        <li key={fIdx} className="flex items-center gap-2">
-                                            <CheckCircle className="w-4 h-4 text-blue-500 shrink-0" />
-                                            <span className={isDark ? 'text-slate-300' : 'text-slate-700'}>{feat}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <Link to="/test" className={`w-full text-center border text-xs font-bold py-2.5 rounded-xl transition-all ${isDark ? 'bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700' : 'bg-slate-100 border-slate-200 text-slate-700 hover:bg-slate-200'}`}>
-                                Try in Playground →
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-
-                {/* CODE INTEGRATION & REST ENGINE BOX */}
-                <div className={`rounded-3xl p-6 sm:p-10 border ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                        <div className="lg:col-span-5 space-y-6">
-                            <div className="flex items-center space-x-3">
-                                <span className={`p-2 rounded-xl border ${isDark ? 'bg-slate-800 border-slate-700 text-blue-400' : 'bg-slate-100 border-slate-200 text-blue-600'}`}><Layers size={20} /></span>
-                                <h2 className="text-2xl font-bold">FastAPI + pgvector Core</h2>
-                            </div>
-                            <p className={`text-sm leading-relaxed ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>
-                                Evaluates 384-dimensional vector embeddings across user partitions, calculating cosine distance and applying exponential time decay in microseconds.
+            {/* PRODUCTS CARDS GRID */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {productsList.map((prod, idx) => (
+                    <div key={idx} className="app-card p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                        <div className="space-y-4">
+                            <h3 className="text-lg font-bold text-[var(--text-primary)]">
+                                {prod.title}
+                            </h3>
+                            <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+                                {prod.desc}
                             </p>
-                            <ul className="space-y-3 text-xs font-medium">
-                                <li className="flex items-center space-x-2">
-                                    <CheckCircle size={16} className="text-blue-500 shrink-0" />
-                                    <span>Native PostgreSQL Vector Search (384-d sentence-transformers)</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <CheckCircle size={16} className="text-blue-500 shrink-0" />
-                                    <span>Reduces LLM prompt context window cost by up to 40%</span>
-                                </li>
-                                <li className="flex items-center space-x-2">
-                                    <CheckCircle size={16} className="text-blue-500 shrink-0" />
-                                    <span>Strict JWT token multi-tenant isolation</span>
-                                </li>
+                            <ul className="space-y-2 pt-2 text-xs font-medium">
+                                {prod.features.map((feat, fIdx) => (
+                                    <li key={fIdx} className="flex items-center gap-2 text-[var(--text-secondary)]">
+                                        <CheckCircle2 color='#50a2ff' className="w-4 h-4 text-emerald-400 shrink-0" />
+                                        <span>{feat}</span>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
 
-                        {/* Interactive Code Implementation */}
-                        <div className={`lg:col-span-7 rounded-2xl overflow-hidden font-mono text-xs border ${isDark ? 'bg-slate-950 border-slate-800' : 'bg-slate-50 border-slate-200 text-slate-800'}`}>
-                            <div className={`px-4 py-3 border-b flex items-center justify-between ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-slate-100 border-slate-200'}`}>
-                                <div className="flex items-center space-x-2">
-                                    <Terminal size={14} className={isDark ? "text-blue-400" : "text-blue-600"} />
-                                    <span className={`font-bold text-[11px] uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>REST API Integration</span>
-                                </div>
-                                <div className="flex space-x-2">
-                                    <button
-                                        onClick={() => setActiveTab('python')}
-                                        className={`px-2.5 py-1 rounded text-xs transition-colors ${activeTab === 'python' ? 'bg-blue-500 text-white font-bold' : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-black')}`}
-                                    >
-                                        Python
-                                    </button>
-                                    <button
-                                        onClick={() => setActiveTab('javascript')}
-                                        className={`px-2.5 py-1 rounded text-xs transition-colors ${activeTab === 'javascript' ? 'bg-blue-500 text-white font-bold' : (isDark ? 'text-slate-400 hover:text-white' : 'text-slate-500 hover:text-black')}`}
-                                    >
-                                        Node.js
-                                    </button>
+                        <Link to="/test" className="btn btn-secondary w-full text-xs font-semibold">
+                            <span>Test in Playground</span>
+                        </Link>
+                    </div>
+                ))}
+            </div>
+
+            {/* CODE INTEGRATION & REST ENGINE BOX */}
+            <div className="app-card p-6 sm:p-10 space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    {/* Left details */}
+                    <div className="lg:col-span-5 space-y-5">
+                        <div className="flex items-center gap-2.5">
+                            <div className="p-2 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)]">
+                                <Layers className="w-5 h-5 text-blue-400" />
+                            </div>
+                            <h2 className="text-xl sm:text-2xl font-bold text-[var(--text-primary)]">
+                                FastAPI + pgvector Core
+                            </h2>
+                        </div>
+
+                        <p className="text-xs sm:text-sm leading-relaxed text-[var(--text-secondary)]">
+                            EchoGraph evaluates 384-dimensional vector embeddings across isolated user namespaces, calculating cosine distance and applying exponential time decay in microseconds.
+                        </p>
+
+                        <div className="space-y-3 text-xs text-[var(--text-secondary)] pt-2">
+                            <div className="flex items-start gap-2.5">
+                                <CheckCircle2 color='#50a2ff' className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
+                                <div>
+                                    <strong className="text-[var(--text-primary)]">Multi-Tenant JWT Isolation:</strong> Queries strictly isolate user vector arrays.
                                 </div>
                             </div>
-                            <div className="p-4 overflow-x-auto leading-relaxed">
-                                <pre className={isDark ? "text-slate-300" : "text-slate-700"}>{codeSnippets[activeTab]}</pre>
+                            <div className="flex items-start gap-2.5">
+                                <CheckCircle2 color='#50a2ff' className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                                <div>
+                                    <strong className="text-[var(--text-primary)]">Up to 40% Token Reductions:</strong> Precision retrieval eliminates LLM context stuffing.
+                                </div>
+                            </div>
+                            <div className="flex items-start gap-2.5">
+                                <CheckCircle2 color='#50a2ff' className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                                <div>
+                                    <strong className="text-[var(--text-primary)]">Zero SaaS Vendor Lock-In:</strong> Open-source PostgreSQL + pgvector architecture.
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {/* HARDWARE & SPECS GRID */}
-                <div className="space-y-6">
-                    <div className="text-center max-w-2xl mx-auto">
-                        <h3 className="text-2xl font-bold">Under the Cognitive Hood</h3>
-                        <p className={`text-sm mt-1 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>Sleek tech stack built for sub-millisecond retrieval profiles.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {[
-                            {
-                                icon: <Database size={20} className="text-blue-500" />,
-                                title: "PostgreSQL & pgvector",
-                                desc: "Utilizes HNSW indexing paths inside relational database engines for clean clustering metrics."
-                            },
-                            {
-                                icon: <Cpu size={20} className="text-blue-500" />,
-                                title: "Cosine & Rank Optimization",
-                                desc: "Filters noisy or low-confidence nodes dynamically. Returns high-impact contextual vectors directly to prompt arrays."
-                            },
-                            {
-                                icon: <Code size={20} className="text-blue-500" />,
-                                title: "JSON Ingestion Protocol",
-                                desc: "Accepts unstructured text, automatically builds vector embeddings, and yields retrieval states instantly."
-                            }
-                        ].map((spec, i) => (
-                            <div key={i} className={`p-6 rounded-2xl border ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200 shadow-sm'}`}>
-                                <div className={`p-2.5 rounded-xl w-fit mb-4 border ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-100 border-slate-200'}`}>{spec.icon}</div>
-                                <h4 className="text-base font-bold mb-2">{spec.title}</h4>
-                                <p className={`text-xs leading-relaxed ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{spec.desc}</p>
+                    {/* Right: Code terminal with tabs */}
+                    <div className="lg:col-span-7 rounded-2xl overflow-hidden border border-[var(--border-color)] bg-[var(--bg-primary)] font-mono text-xs">
+                        <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border-color)] bg-[var(--bg-secondary)]">
+                            <div className="flex items-center gap-2">
+                                <Terminal className="w-4 h-4 text-blue-400" />
+                                <span className="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider">
+                                    Integration Code
+                                </span>
                             </div>
-                        ))}
+
+                            <div className="flex items-center gap-1.5">
+                                {['python', 'javascript', 'curl'].map((lang) => (
+                                    <button
+                                        key={lang}
+                                        onClick={() => setActiveTab(lang)}
+                                        className={`px-2.5 py-1 rounded-md text-[11px] font-mono transition-colors capitalize ${
+                                            activeTab === lang
+                                                ? 'bg-[var(--bg-tertiary)] text-[var(--text-primary)] font-bold border border-[var(--border-color)]'
+                                                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                                        }`}
+                                    >
+                                        {lang === 'javascript' ? 'Node.js' : lang}
+                                    </button>
+                                ))}
+                                <button
+                                    onClick={handleCopy}
+                                    className="p-1.5 rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors ml-1"
+                                    title="Copy Code"
+                                >
+                                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="p-5 overflow-x-auto leading-relaxed">
+                            <pre className="text-[var(--text-secondary)]">
+                                {codeSnippets[activeTab]}
+                            </pre>
+                        </div>
                     </div>
                 </div>
-
             </div>
+
+            {/* HARDWARE & SPECS GRID */}
+            <div className="space-y-6">
+                <div className="text-center max-w-2xl mx-auto space-y-2">
+                    <h3 className="text-2xl font-bold text-[var(--text-primary)]">Technical Specifications</h3>
+                    <p className="text-xs sm:text-sm text-[var(--text-secondary)]">
+                        Lightweight, production-ready stack designed for sub-millisecond retrieval profiles.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {[
+                        {
+                            icon: <Database color='#50a2ff' className="w-5 h-5 text-blue-400" />,
+                            title: "PostgreSQL & pgvector",
+                            desc: "Utilizes HNSW index paths inside relational database engines for high recall and microsecond neighbor lookups."
+                        },
+                        {
+                            icon: <Cpu color='#50a2ff' className="w-5 h-5 text-cyan-400" />,
+                            title: "Decay Ranking Engine",
+                            desc: "Applies dynamic time decay formulas so stale user context naturally drops out of top-K consideration without manual deletions."
+                        },
+                        {
+                            icon: <Server color='#50a2ff' className="w-5 h-5 text-emerald-400" />,
+                            title: "Offline SQLite Fallback",
+                            desc: "Runs completely offline without cloud dependencies for local development, tests, and air-gapped environments."
+                        }
+                    ].map((spec, i) => (
+                        <div key={i} className="app-card p-6 space-y-3">
+                            <div className="p-2.5 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-color)] w-fit">
+                                {spec.icon}
+                            </div>
+                            <h4 className="text-base font-bold text-[var(--text-primary)]">{spec.title}</h4>
+                            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{spec.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
         </div>
     );
 }
